@@ -1,12 +1,9 @@
-# Wizard
-# Shaman
-# Alchemist
-# Assasin
+# Wizard, Alchemist - Attributes: great attacking spells, making potions
+# Angels, Priest, Palladin - Attributes: healing, flying (over water)
+# Assasins, Bandits, Thiefs - Attributes: stealing gold, sneaky attack
 # Rouge
-# Knight
-# Archer
-# cowboy
-# gigagrubas
+# Archers, cowboy - Attributes: Long ranged physical attack
+# Necromancers - Attributes: Long ranged magic attack, spawning undeads
 # 
 # 
 # 
