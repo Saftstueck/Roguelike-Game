@@ -1,7 +1,34 @@
-//# Wizard, Alchemist - Attributes: great attacking spells, making potions
-//# Angels, Priest, Palladin - Attributes: healing, flying (over water)
-//# Assasins, Bandits, Thiefs - Attributes: stealing gold, sneaky attack
-//# Rouge - Attributes: sneaky attack, stealing gold, poison
-//# Archers, cowboy - Attributes: Long ranged physical attack
-//# Necromancers - Attributes: Long ranged magic attack, spawning undeads
-//  # 
+# MAGES
+# Wizard (70hp) - Attributes: great attacking spells
+# Alchemist (50hp) - Attributes: making potions
+# Druid (80hp) - Attributes: nature magic, summoning trees (the more trees, the more healing and damage)
+
+# HOLY
+# Angel (110hp) - Attributes: healing, flying (over water)
+# Priest (90hp) - Attributes: attacking buffs, "blessed" (luckier)
+# Palladin (140hp) - Attributes: high defence, mid meele phys attack
+
+# ROGUE
+# Assasin (100hp) - Attributes: sneak attack, bleeding. chance of critical demage if getting too close
+# Bandit (100hp) - Attributes: stealing gold
+# Thief (100hp) - Attributes: stealing gold, traps
+# Grubas (200hp) - Attributes: insane amount of hp, but very little demage. can roll around to move faster temporarily, but has cooldown
+
+# RANGED PHYSICAL
+# Archers (80hp) - Attributes: Long ranged physical attack with Bow. High range (Triple Shot)
+# Cowboy (100hp) - Attributes: Shooting with guns, fast attacks, Throwing with dynamite
+# Crossbowman (100hp) - Attributes: Long ranged physical attack with Crossbow. High damage (Piercing Shot)
+
+# SUMMONERS 
+# Necromancers (90hp) - Attributes: Long ranged magic attack, spawning undeads
+# Summoner (40hp) - Attributes: Summoning creatures, mid ranged magic attack
+# Controller (30hp) - Attributes: controlling enemies, bluetooth attacks idk man
+
+# ---
+# hp
+# mana
+# damage (magic (M), physical(P))
+# resistance (M/P)
+# spells 
+# weapons
+# ---
