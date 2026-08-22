@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bkty8wsw8g854"]
+
+[ext_resource type="Texture2D" uid="uid://qp21eukgrl2n" path="res://papież polak na rowerze.webp" id="1_u44n3"]
+[ext_resource type="Texture2D" uid="uid://p68h3v4myxvi" path="res://Zrzut ekranu z 2026-08-21 16-12-25.png" id="2_sb48q"]
+[ext_resource type="Texture2D" uid="uid://dr46nyh22iaqa" path="res://Zrzut ekranu z 2026-08-21 17-15-32.png" id="3_t88pq"]
+
+[node name="Game" type="Node2D" unique_id=535980652]
+position = Vector2(561, 296)
+
+[node name="PapieżPolakNaRowerze" type="Sprite2D" parent="." unique_id=1659309344]
+position = Vector2(13.5, 26.5)
+scale = Vector2(1.062037, 0.8022388)
+texture = ExtResource("1_u44n3")
+
+[node name="ZrzutEkranuZ20260821161225" type="Sprite2D" parent="." unique_id=1848917409]
+position = Vector2(-387, 42)
+texture = ExtResource("2_sb48q")
+
+[node name="ZrzutEkranuZ20260821171532" type="Sprite2D" parent="." unique_id=2025295197]
+position = Vector2(331, 45)
+texture = ExtResource("3_t88pq")
+
+[node name="Label" type="Label" parent="." unique_id=1722004821]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -195.0
+offset_top = -186.0
+offset_right = 267.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 39
+text = "Nothing here...
+just us, me and you"
