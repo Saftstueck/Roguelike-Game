@@ -16,7 +16,4 @@
 
 # Necromancers - Attributes: Long ranged magic attack, spawning undeads
 # Summoner - Attributes: Summoning creatures, mid ranged magic attack
-
-
-
-
+# controller - Attributes: controlling enemies, bluetooth attacks idk man
