@@ -35,8 +35,6 @@ public partial class Game : Node2D
             string textureName =
                 Path.GetFileNameWithoutExtension(file);
 
-            // Files containing "_n" are normal maps.
-            // They will not be randomly selected as weapon images.
             if (textureName.Contains(
                     "_n",
                     StringComparison.OrdinalIgnoreCase))
@@ -119,7 +117,6 @@ public partial class Game : Node2D
         string weaponName =
             Path.GetFileNameWithoutExtension(diffuseFile);
 
-        // Bow1.png uses Bow_n.png.
         if (weaponName.Equals(
                 "Bow1",
                 StringComparison.OrdinalIgnoreCase))
@@ -135,10 +132,7 @@ public partial class Game : Node2D
             string normalName =
                 Path.GetFileNameWithoutExtension(normalFile);
 
-            // Examples:
-            // Axe_n.png         becomes Axe
-            // Bow_n2.png        becomes Bow2
-            // Great Sword_n.png becomes Great Sword
+
             Match match = Regex.Match(
                 normalName,
                 @"^(.*)_n(\d*)$",
@@ -162,7 +156,6 @@ public partial class Game : Node2D
                     " " + normalKey,
                     StringComparison.OrdinalIgnoreCase);
 
-            // Prefer Great Sword_n over Sword_n.
             if (isMatchingNormal &&
                 normalKey.Length > longestMatchLength)
             {

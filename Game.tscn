@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://b6i8y18mor78f" path="res://textures/tileset/frames/wizzard_m_run_anim_f1.png" id="8_elkpi"]
 [ext_resource type="Texture2D" uid="uid://ce5nh0qpd5oer" path="res://textures/tileset/frames/wizzard_m_run_anim_f2.png" id="9_0yprl"]
 [ext_resource type="Texture2D" uid="uid://diedrn0e1uron" path="res://textures/tileset/frames/wizzard_m_run_anim_f3.png" id="10_wuoie"]
+[ext_resource type="Texture2D" uid="uid://b6eu08s768lr0" path="res://textures/Wepoins/Diamond Sword.png" id="15_elkpi"]
 [ext_resource type="Script" uid="uid://s6g7vykjlobg" path="res://Weapon.cs" id="15_qjyg3"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yhmtn"]
@@ -258,7 +259,7 @@ sources/1 = SubResource("TileSetAtlasSource_yyih5")
 sources/2 = SubResource("TileSetAtlasSource_wuoie")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yx171"]
-size = Vector2(3.096818, 7.448275)
+size = Vector2(2.7775307, 6.9278364)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o2nk3"]
 animations = [{
@@ -306,8 +307,14 @@ animations = [{
 radius = 4.129013
 height = 16.551697
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2nk3"]
-size = Vector2(6, 35.5)
+[sub_resource type="Gradient" id="Gradient_elkpi"]
+offsets = PackedFloat32Array(0, 0.6626506)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gj24f"]
+gradient = SubResource("Gradient_elkpi")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Game" type="Node2D" unique_id=535980652]
 position = Vector2(561, 296)
@@ -318,10 +325,10 @@ position = Vector2(51, -4)
 script = ExtResource("1_lvtmh")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2030444095]
-offset_left = -957.0
-offset_top = -659.0
-offset_right = 1108.0
-offset_bottom = 619.0
+offset_left = -962.0
+offset_top = -671.0
+offset_right = 1103.0
+offset_bottom = 607.0
 color = Color(0.07, 0.07, 0.07, 1)
 
 [node name="TileMap" type="TileMap" parent="." unique_id=1082378393]
@@ -339,7 +346,7 @@ Speed = 100.0
 JumpVelocity = -250.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1211017220]
-position = Vector2(-283.4525, 15.963104)
+position = Vector2(-283.5, 16.5)
 scale = Vector2(3.2402983, 3.0312493)
 shape = SubResource("RectangleShape2D_yx171")
 
@@ -364,21 +371,40 @@ zoom = Vector2(3, 3)
 
 [node name="Weapon" type="Sprite2D" parent="Player" unique_id=974378530]
 texture_filter = 3
-position = Vector2(-262.375, 20.687504)
-rotation = -3.6356313
-scale = Vector2(2.7499828, 1.3749918)
+position = Vector2(-264, 17.999985)
+rotation = -3.9260578
+scale = Vector2(0.41577724, 0.38043666)
+texture = ExtResource("15_elkpi")
 script = ExtResource("15_qjyg3")
 
-[node name="Attacks" type="Area2D" parent="Player" unique_id=451342372]
-position = Vector2(-20, 1)
+[node name="Attacks" type="Area2D" parent="Player/Weapon" unique_id=451342372]
+position = Vector2(-80.15967, -69.49707)
+rotation = -2.3190584
+scale = Vector2(0.47056517, 0.663124)
+skew = -0.55948114
 
-[node name="SwordAttackHitbox" type="CollisionShape2D" parent="Player/Attacks" unique_id=428191109]
-position = Vector2(-246, 14.75)
-shape = SubResource("RectangleShape2D_o2nk3")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Weapon" unique_id=1284887024]
+position = Vector2(1819.5994, 1832.6543)
+rotation = -2.3586576
+scale = Vector2(26.341963, 23.244408)
+skew = -0.08832705
+shape = SubResource("RectangleShape2D_yx171")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1458063392]
+texture_filter = 3
+position = Vector2(-263.55072, 8.000011)
+rotation = 2.3375924
+scale = Vector2(0.39868626, 0.4010685)
+texture = ExtResource("15_elkpi")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1097933339]
 position = Vector2(1000, -707)
-energy = 0.6
+energy = 0.2
 range_z_min = -1023
 shadow_enabled = true
 shadow_filter = 2
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1917895795]
+position = Vector2(-194, 13.000008)
+scale = Vector2(1.7968744, -1.4687536)
+texture = SubResource("GradientTexture2D_gj24f")
