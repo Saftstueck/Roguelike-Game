@@ -23,7 +23,7 @@
 // Hammer (Artefact)
 //------Magic
 // Lightning Hammer (Artefact)
-// 
+// Double Battle Axe (Artefact)
 // 
 // 
 // 
