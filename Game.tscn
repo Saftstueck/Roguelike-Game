@@ -145,23 +145,6 @@ animations = [{
 [node name="Game" type="Node2D" unique_id=535980652]
 position = Vector2(561, 296)
 
-[node name="Label" type="Label" parent="." unique_id=1722004821]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -195.0
-offset_top = -186.0
-offset_right = 267.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 39
-text = "Nothing here...
-The games is not even close
-to being done"
-
 [node name="TileMap" type="TileMap" parent="." unique_id=1082378393]
 position = Vector2(0, 2)
 tile_set = SubResource("TileSet_o2nk3")
@@ -170,6 +153,7 @@ layer_0/tile_data = PackedInt32Array(262125, 0, 0, 262126, 0, 0, 262127, 0, 0, 2
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1670363920]
 script = ExtResource("2_yx171")
+JumpVelocity = -250.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1211017220]
 position = Vector2(-279, 5)
@@ -182,7 +166,7 @@ position = Vector2(-281.00003, -4.999998)
 scale = Vector2(1.937499, 1.8125007)
 sprite_frames = SubResource("SpriteFrames_o2nk3")
 animation = &"idle"
-frame_progress = 0.42214817
+frame_progress = 0.8664621
 
 [node name="Area2D" type="Area2D" parent="Player/AnimatedSprite2D" unique_id=722614706]
 

@@ -6,7 +6,7 @@ public partial class Player : CharacterBody2D
     public float Speed = 200.0f;
 
     [Export]
-    public float JumpVelocity = -275.0f;
+    public float JumpVelocity = -280.0f;
 
     private AnimatedSprite2D animatedSprite;
 
