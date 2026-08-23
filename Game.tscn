@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bkty8wsw8g854"]
 
-[ext_resource type="Texture2D" uid="uid://qp21eukgrl2n" path="res://papież polak na rowerze.webp" id="1_u44n3"]
-[ext_resource type="Texture2D" uid="uid://p68h3v4myxvi" path="res://Zrzut ekranu z 2026-08-21 16-12-25.png" id="2_sb48q"]
-[ext_resource type="Texture2D" uid="uid://dr46nyh22iaqa" path="res://Zrzut ekranu z 2026-08-21 17-15-32.png" id="3_t88pq"]
+[ext_resource type="Texture2D" path="res://papież polak na rowerze.webp" id="1_u44n3"]
+[ext_resource type="Texture2D" path="res://Zrzut ekranu z 2026-08-21 16-12-25.png" id="2_sb48q"]
+[ext_resource type="Texture2D" path="res://Zrzut ekranu z 2026-08-21 17-15-32.png" id="3_t88pq"]
 
 [node name="Game" type="Node2D" unique_id=535980652]
 position = Vector2(561, 296)
@@ -34,4 +34,5 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 39
 text = "Nothing here...
-just us, me and you"
+The games is not even close
+to being done"

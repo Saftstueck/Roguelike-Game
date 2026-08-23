@@ -5,23 +5,47 @@ public partial class MainMenu : Control
     [Export(PropertyHint.File)]
     private string GamePath = "res://Game.tscn";
 
+    [Export(PropertyHint.File)]
+    private string OptionsPath = "res://Options.tscn";
+
     [Export]
     private string startButtonPath = "StartButton";
 
+    [Export]
+    private string optionsButtonPath = "OptionsButton";
+
     public override void _Ready()
     {
-        var button = GetNodeOrNull<Button>(startButtonPath);
-        if (button == null)
+        var startButton = GetNodeOrNull<Button>(startButtonPath);
+
+        if (startButton == null)
         {
-            GD.PushWarning($"MainMenu: Button '{startButtonPath}' not found. Add a Button node with that name or change startButtonPath.");
-            return;
+            GD.PushWarning($"MainMenu: Button '{startButtonPath}' not found.");
+        }
+        else
+        {
+            startButton.Pressed += OnStartButtonPressed;
         }
 
-        button.Pressed += OnStartButtonPressed;
+        var optionsButton = GetNodeOrNull<Button>(optionsButtonPath);
+
+        if (optionsButton == null)
+        {
+            GD.PushWarning($"MainMenu: Button '{optionsButtonPath}' not found.");
+        }
+        else
+        {
+            optionsButton.Pressed += OnOptionsButtonPressed;
+        }
     }
 
     private void OnStartButtonPressed()
     {
         GetTree().ChangeSceneToFile(GamePath);
+    }
+
+    private void OnOptionsButtonPressed()
+    {
+        GetTree().ChangeSceneToFile(OptionsPath);
     }
 }
