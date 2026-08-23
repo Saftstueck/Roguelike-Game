@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bkty8wsw8g854"]
 
+[ext_resource type="Script" uid="uid://drt5kdppsyx6p" path="res://Wepoin_Texture.cs" id="1_lvtmh"]
 [ext_resource type="Texture2D" uid="uid://802cqrri8fg" path="res://textures/tileset/atlas_floor-16x16.png" id="1_wbfu4"]
+[ext_resource type="Script" uid="uid://6pnmi8vxvwsh" path="res://Game.cs" id="1_yyih5"]
 [ext_resource type="Texture2D" uid="uid://bphiurpdkdrfu" path="res://textures/tileset/atlas_walls_low-16x16.png" id="2_gwjdr"]
 [ext_resource type="Script" uid="uid://88lmw8wlqpc5" path="res://Player.cs" id="2_yx171"]
 [ext_resource type="Texture2D" uid="uid://blk24kydqm6as" path="res://textures/adve/tiles.png" id="3_gwjdr"]
@@ -12,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://b6i8y18mor78f" path="res://textures/tileset/frames/wizzard_m_run_anim_f1.png" id="8_elkpi"]
 [ext_resource type="Texture2D" uid="uid://ce5nh0qpd5oer" path="res://textures/tileset/frames/wizzard_m_run_anim_f2.png" id="9_0yprl"]
 [ext_resource type="Texture2D" uid="uid://diedrn0e1uron" path="res://textures/tileset/frames/wizzard_m_run_anim_f3.png" id="10_wuoie"]
+[ext_resource type="Script" uid="uid://s6g7vykjlobg" path="res://Weapon.cs" id="15_qjyg3"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yhmtn"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -254,15 +257,6 @@ sources/0 = SubResource("TileSetAtlasSource_xkndl")
 sources/1 = SubResource("TileSetAtlasSource_yyih5")
 sources/2 = SubResource("TileSetAtlasSource_wuoie")
 
-[sub_resource type="Gradient" id="Gradient_yhmtn"]
-offsets = PackedFloat32Array(0, 0.6807229)
-colors = PackedColorArray(0.8023297, 0.8439256, 0.3656401, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_7kvw3"]
-gradient = SubResource("Gradient_yhmtn")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yx171"]
 size = Vector2(3.096818, 7.448275)
 
@@ -317,12 +311,17 @@ size = Vector2(6, 35.5)
 
 [node name="Game" type="Node2D" unique_id=535980652]
 position = Vector2(561, 296)
+script = ExtResource("1_yyih5")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=63985419]
+position = Vector2(51, -4)
+script = ExtResource("1_lvtmh")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2030444095]
-offset_left = -950.0
-offset_top = -669.0
-offset_right = 1115.0
-offset_bottom = 609.0
+offset_left = -957.0
+offset_top = -659.0
+offset_right = 1108.0
+offset_bottom = 619.0
 color = Color(0.07, 0.07, 0.07, 1)
 
 [node name="TileMap" type="TileMap" parent="." unique_id=1082378393]
@@ -338,14 +337,6 @@ position = Vector2(51, -4)
 script = ExtResource("2_yx171")
 Speed = 100.0
 JumpVelocity = -250.0
-
-[node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=1348344584]
-position = Vector2(-282.99997, 16)
-scale = Vector2(2.846679, 2.87549)
-color = Color(0.030968288, 0.5565987, 0.99999994, 1)
-energy = 0.7
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_7kvw3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1211017220]
 position = Vector2(-283.4525, 15.963104)
@@ -371,9 +362,23 @@ shape = SubResource("CapsuleShape2D_yhmtn")
 position = Vector2(-289, 21)
 zoom = Vector2(3, 3)
 
+[node name="Weapon" type="Sprite2D" parent="Player" unique_id=974378530]
+texture_filter = 3
+position = Vector2(-262.375, 20.687504)
+rotation = -3.6356313
+scale = Vector2(2.7499828, 1.3749918)
+script = ExtResource("15_qjyg3")
+
 [node name="Attacks" type="Area2D" parent="Player" unique_id=451342372]
 position = Vector2(-20, 1)
 
 [node name="SwordAttackHitbox" type="CollisionShape2D" parent="Player/Attacks" unique_id=428191109]
 position = Vector2(-246, 14.75)
 shape = SubResource("RectangleShape2D_o2nk3")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1097933339]
+position = Vector2(1000, -707)
+energy = 0.6
+range_z_min = -1023
+shadow_enabled = true
+shadow_filter = 2
