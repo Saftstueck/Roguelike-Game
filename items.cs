@@ -34,6 +34,7 @@
 // Crossbow
 // Great Bow
 // Great Crossbow
+// Revolver
 // AK-47 (Artefact)
 //------Magic
 // Wooden Wand
