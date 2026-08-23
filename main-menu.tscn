@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://s8o5h30mjter"]
 
 [ext_resource type="Script" uid="uid://nv11tm3sj78h" path="res://MainMenu.cs" id="1_j3jwc"]
-[ext_resource type="Texture2D" path="res://Zrzut ekranu z 2026-08-21 18-22-01.png" id="2_j3jwc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4thvv"]
 corner_radius_top_left = 16
@@ -40,11 +39,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_j3jwc")
-
-[node name="ZrzutEkranuZ20260821182201" type="Sprite2D" parent="." unique_id=2139559515]
-position = Vector2(584.5, 326.50003)
-scale = Vector2(1.6638298, 0.85109115)
-texture = ExtResource("2_j3jwc")
 
 [node name="StartButton" type="Button" parent="." unique_id=1583123467]
 layout_mode = 1
