@@ -1,24 +1,149 @@
 [gd_scene format=3 uid="uid://bkty8wsw8g854"]
 
-[ext_resource type="Texture2D" path="res://papież polak na rowerze.webp" id="1_u44n3"]
-[ext_resource type="Texture2D" path="res://Zrzut ekranu z 2026-08-21 16-12-25.png" id="2_sb48q"]
-[ext_resource type="Texture2D" path="res://Zrzut ekranu z 2026-08-21 17-15-32.png" id="3_t88pq"]
+[ext_resource type="Texture2D" uid="uid://802cqrri8fg" path="res://textures/tileset/atlas_floor-16x16.png" id="1_wbfu4"]
+[ext_resource type="Script" uid="uid://88lmw8wlqpc5" path="res://Player.cs" id="2_yx171"]
+[ext_resource type="Texture2D" uid="uid://dyhfjqf0y6a8s" path="res://textures/tileset/frames/wizzard_m_idle_anim_f0.png" id="3_yhmtn"]
+[ext_resource type="Texture2D" uid="uid://bmqvnrclslgrh" path="res://textures/tileset/frames/wizzard_m_idle_anim_f1.png" id="4_gwjdr"]
+[ext_resource type="Texture2D" uid="uid://de5thfyg18gm2" path="res://textures/tileset/frames/wizzard_m_idle_anim_f2.png" id="5_lvtmh"]
+[ext_resource type="Texture2D" uid="uid://b27irytnbfdgm" path="res://textures/tileset/frames/wizzard_m_idle_anim_f3.png" id="6_yyih5"]
+[ext_resource type="Texture2D" uid="uid://77wktmsfww7q" path="res://textures/tileset/frames/wizzard_m_run_anim_f0.png" id="7_qjyg3"]
+[ext_resource type="Texture2D" uid="uid://b6i8y18mor78f" path="res://textures/tileset/frames/wizzard_m_run_anim_f1.png" id="8_elkpi"]
+[ext_resource type="Texture2D" uid="uid://ce5nh0qpd5oer" path="res://textures/tileset/frames/wizzard_m_run_anim_f2.png" id="9_0yprl"]
+[ext_resource type="Texture2D" uid="uid://diedrn0e1uron" path="res://textures/tileset/frames/wizzard_m_run_anim_f3.png" id="10_wuoie"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xkndl"]
+texture = ExtResource("1_wbfu4")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:1/0 = 0
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.877739, -8, 8, -8, 8, 8, -2.877739, 8)
+5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(2.877739, 8, -8, 8, -8, -8, 2.877739, -8)
+6:2/0 = 0
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+3:3/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:3/0 = 0
+4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.877739, -8, 8, -8, 8, 8, -2.877739, 8)
+5:3/0 = 0
+5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(2.877739, 8, -8, 8, -8, -8, 2.877739, -8)
+6:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.877739, -8, 8, -8, 8, 8, -2.877739, 8)
+5:4/0 = 0
+5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(2.877739, 8, -8, 8, -8, -8, 2.877739, -8)
+0:5/0 = 0
+0:5/0/physics_layer_2/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+4:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.877739, -8, 8, -8, 8, 8, -2.877739, 8)
+5:5/0 = 0
+5:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(2.877739, 8, -8, 8, -8, -8, 2.877739, -8)
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+4:6/0 = 0
+4:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.877739, -8, 8, -8, 8, 8, -2.877739, 8)
+5:6/0 = 0
+5:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(2.877739, 8, -8, 8, -8, -8, 2.877739, -8)
+
+[sub_resource type="TileSet" id="TileSet_o2nk3"]
+physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 1
+physics_layer_2/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_xkndl")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yhmtn"]
+radius = 4.129013
+height = 16.551697
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o2nk3"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yhmtn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gwjdr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lvtmh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_yyih5")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qjyg3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_elkpi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0yprl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_wuoie")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 10.0
+}]
 
 [node name="Game" type="Node2D" unique_id=535980652]
 position = Vector2(561, 296)
-
-[node name="PapieżPolakNaRowerze" type="Sprite2D" parent="." unique_id=1659309344]
-position = Vector2(13.5, 26.5)
-scale = Vector2(1.062037, 0.8022388)
-texture = ExtResource("1_u44n3")
-
-[node name="ZrzutEkranuZ20260821161225" type="Sprite2D" parent="." unique_id=1848917409]
-position = Vector2(-387, 42)
-texture = ExtResource("2_sb48q")
-
-[node name="ZrzutEkranuZ20260821171532" type="Sprite2D" parent="." unique_id=2025295197]
-position = Vector2(331, 45)
-texture = ExtResource("3_t88pq")
 
 [node name="Label" type="Label" parent="." unique_id=1722004821]
 anchors_preset = 8
@@ -36,3 +161,34 @@ theme_override_font_sizes/font_size = 39
 text = "Nothing here...
 The games is not even close
 to being done"
+
+[node name="TileMap" type="TileMap" parent="." unique_id=1082378393]
+position = Vector2(0, 2)
+tile_set = SubResource("TileSet_o2nk3")
+format = 2
+layer_0/tile_data = PackedInt32Array(262125, 0, 0, 262126, 0, 0, 262127, 0, 0, 262128, 0, 0, 262129, 0, 0, 262130, 0, 0, 262133, 0, 0, 262134, 0, 0, 262135, 0, 0, 262136, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 196602, 0, 0, 131069, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 1114077, 196608, 3, 1114078, 196608, 3, 1114079, 196608, 3, 1114080, 196608, 3, 1114081, 196608, 3, 1114082, 196608, 3, 1114083, 196608, 3, 1114084, 196608, 3, 1114085, 196608, 3, 1114086, 196608, 3, 1114087, 196608, 3, 1114088, 196608, 3, 1114089, 196608, 3, 1114090, 196608, 3, 1114091, 196608, 3, 1114092, 196608, 3, 1114093, 196608, 3, 1114094, 196608, 3, 1114095, 196608, 3, 1114096, 196608, 3, 1114097, 196608, 3, 1114098, 196608, 3, 1114099, 196608, 3, 1114100, 196608, 3, 1114101, 196608, 3, 1114102, 196608, 3, 1114103, 196608, 3, 1114104, 196608, 3, 1114105, 196608, 3, 1114106, 196608, 3, 1114107, 196608, 3, 1114108, 196608, 3, 1114109, 196608, 3, 1114110, 196608, 3, 1114111, 196608, 3, 1048576, 196608, 3, 1048577, 196608, 3, 1048578, 196608, 3, 1048579, 196608, 3, 1048580, 196608, 3, 1048581, 196608, 3, 1048582, 196608, 3, 1048583, 196608, 3, 1048584, 196608, 3, 1048585, 196608, 3, 1048586, 196608, 3, 1048587, 196608, 3, 1048588, 196608, 3, 1048589, 196608, 3, 1048590, 196608, 3, 1048591, 196608, 3, 1048592, 196608, 3, 1048593, 196608, 3, 1048594, 196608, 3, 1048595, 196608, 3, 1048596, 196608, 3, 1048597, 196608, 3, 1048598, 196608, 3, 1048599, 196608, 3, 1048600, 196608, 3, 1048601, 196608, 3, 1048602, 196608, 3, 1048603, 196608, 3, 1048604, 196608, 3, 1048605, 196608, 3, 1048606, 196608, 3, 1048607, 196608, 3, 1048608, 196608, 3, 1048609, 196608, 3, 1048610, 196608, 3, 1048611, 196608, 3, 1048612, 196608, 3)
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1670363920]
+script = ExtResource("2_yx171")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1211017220]
+position = Vector2(-279, 5)
+scale = Vector2(1.9374989, 1.8125006)
+shape = SubResource("CapsuleShape2D_yhmtn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=851926600]
+oversampling_with_scale = 2
+position = Vector2(-281.00003, -4.999998)
+scale = Vector2(1.937499, 1.8125007)
+sprite_frames = SubResource("SpriteFrames_o2nk3")
+animation = &"idle"
+frame_progress = 0.42214817
+
+[node name="Area2D" type="Area2D" parent="Player/AnimatedSprite2D" unique_id=722614706]
+
+[node name="PlayerHitbox" type="CollisionShape2D" parent="Player/AnimatedSprite2D/Area2D" unique_id=1738806932]
+position = Vector2(1.0322571, 5.5172424)
+shape = SubResource("CapsuleShape2D_yhmtn")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=800816767]
+position = Vector2(-279, 5)
