@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://b7se06fpyhwgu"]
+
+[ext_resource type="Texture2D" uid="uid://dlawiciqjd2ay" path="res://textures/light.svg" id="1_gpsp7"]
+[ext_resource type="Script" uid="uid://bpik0k2jlgsm" path="res://FireballSpell.cs" id="1_x0egx"]
+
+[node name="Fireball" type="Area2D" unique_id=726984142]
+script = ExtResource("1_x0egx")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=2077856712]
+rotation = 0.014696191
+scale = Vector2(0.35627556, 0.35627556)
+lifetime = 1.92
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 12.55
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, -50)
+damping_min = 28.703
+damping_max = 43.103
+color = Color(1, 0.3, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=165041698]
+scale = Vector2(0.10201151, 0.10201151)
+texture = ExtResource("1_gpsp7")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=670912406]
+position = Vector2(4.7683716e-07, -4.7683716e-07)
+scale = Vector2(0.43390802, 0.43390802)
+color = Color(1, 0.51666665, 0, 1)
+energy = 3.11
+shadow_enabled = true
+texture = ExtResource("1_gpsp7")
