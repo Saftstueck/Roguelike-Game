@@ -6,6 +6,7 @@ public partial class WeaponCTR : Sprite2D
 {
     private enum WeaponKind
     {
+        // Max jeżeli czegoś zapomniałem to dodaj proszę
         Unknown,
         Sword,
         GreatSword,
@@ -29,7 +30,6 @@ public partial class WeaponCTR : Sprite2D
     [Export]
     public float DistanceFromPlayer { get; set; } = 32.0f;
 
-    // Moves the center of the entire weapon orbit.
     [Export]
     public Vector2 OrbitCenterOffset { get; set; } =
         Vector2.Zero;
@@ -182,10 +182,8 @@ public partial class WeaponCTR : Sprite2D
     [Export]
     public float SwingCurvePower { get; set; } = 1.0f;
 
-
     [ExportCategory("Bow Drawing")]
 
-    // Time between displaying Bow2 and Bow3.
     [Export]
     public float BowFullDrawTime { get; set; } = 0.35f;
 
@@ -198,7 +196,6 @@ public partial class WeaponCTR : Sprite2D
     [Export]
     public float MagicCooldown { get; set; } = 0.25f;
 
-    // How far the wand/staff moves toward the Player.
     [Export]
     public float MagicMoveTowardPlayerDistance { get; set; } =
         12.0f;
@@ -413,7 +410,6 @@ public partial class WeaponCTR : Sprite2D
 
             if (bowFrame != 1)
             {
-                // Arrow shooting can be added here later.
                 SetBowFrame(1);
             }
         }
@@ -695,14 +691,13 @@ public partial class WeaponCTR : Sprite2D
 
         if (isMagicWeapon)
         {
-            // Wand/staff move toward the Player and back.
+            // ten skrypt odhudza maxa
             positionAnimationDistance =
                 -animationAmount *
                 MagicMoveTowardPlayerDistance;
         }
         else if (!isBow)
         {
-            // Normal melee weapons move toward the mouse.
             positionAnimationDistance =
                 animationAmount *
                 SwingForwardDistance;

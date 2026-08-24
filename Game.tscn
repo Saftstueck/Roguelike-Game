@@ -409,4 +409,5 @@ rotation = -0.0027858103
 scale = Vector2(1.7968744, -1.4687536)
 color = Color(0.4279999, 0.33999997, 1, 1)
 energy = 1.75
+shadow_enabled = true
 texture = SubResource("GradientTexture2D_gj24f")
