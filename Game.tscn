@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://ce5nh0qpd5oer" path="res://textures/tileset/frames/wizzard_m_run_anim_f2.png" id="9_0yprl"]
 [ext_resource type="Texture2D" uid="uid://diedrn0e1uron" path="res://textures/tileset/frames/wizzard_m_run_anim_f3.png" id="10_wuoie"]
 [ext_resource type="Script" uid="uid://bgim8cyg51v56" path="res://WeaponCTR.cs" id="16_elkpi"]
+[ext_resource type="Script" uid="uid://dk436bsq2yrm7" path="res://WeaponPixelFloorGuard.cs" id="17_0yprl"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yhmtn"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -391,6 +392,9 @@ rotation = 2.0960815
 scale = Vector2(5.0683913, 5.578549)
 skew = -0.56336117
 shape = SubResource("CapsuleShape2D_gj24f")
+
+[node name="WeaponPixelFloorGuard" type="Node2D" parent="Player/Weapon" unique_id=564045916]
+script = ExtResource("17_0yprl")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=800816767]
 position = Vector2(1, 1)
