@@ -8,7 +8,7 @@ public partial class Game : Node2D
 {
     [Export(PropertyHint.Dir)]
     public string WeaponFolder { get; set; } =
-        "res://textures/Wepoins";
+        "res://textures/Weapons";
 
     public override void _Process(double delta)
     {
