@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 using System;
 
 public class WeaponType
 
+=======
+public class WeaponType
+>>>>>>> origin/main
 {
     public string Name {get; }
     public double PhysDamage {get; }
@@ -19,12 +23,16 @@ public class Weapon
 {
     public WeaponType Type { get; }
     public WeaponQuality Quality { get; }
+<<<<<<< HEAD
     public WeaponMaterial Material { get; }
+=======
+>>>>>>> origin/main
 
     public Weapon(WeaponType type)
     {
         Type = type;
         Quality = RandomQuality();
+<<<<<<< HEAD
         Material = RandomMaterial();
     }
     private static WeaponQuality RandomQuality()
@@ -37,6 +45,16 @@ public class Weapon
     {
          WeaponMaterial[] values = Enum.GetValues<WeaponMaterial>();
         return values[Random.Shared.Next(values.Length)];
+=======
+    }
+    private static WeaponQuality RandomQuality()
+    {
+        Random random = new();
+
+        return (WeaponQuality)random.Next(
+            Enum.GetValues<WeaponQuality>().Length
+        );
+>>>>>>> origin/main
     }
 }
 
@@ -81,6 +99,7 @@ public enum WeaponQuality
     Divine,
     Artefact
 }
+<<<<<<< HEAD
 
 public enum WeaponMaterial
 {
@@ -90,3 +109,5 @@ public enum WeaponMaterial
     Golden,
     Diamond,
 }
+=======
+>>>>>>> origin/main
