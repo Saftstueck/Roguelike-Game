@@ -1,14 +1,26 @@
 [gd_scene format=3 uid="uid://b7se06fpyhwgu"]
 
-[ext_resource type="Script" uid="uid://b726huyhl1ktj" path="res://MageSpell.cs" id="1_mlvhm"]
 [ext_resource type="Texture2D" uid="uid://dlawiciqjd2ay" path="res://textures/light.svg" id="2_784t3"]
+[ext_resource type="Script" uid="uid://knpt3101autm" path="res://Arrow.cs" id="2_hsr87"]
 [ext_resource type="Texture2D" uid="uid://bcay3b7wyni8g" path="res://textures/Weapons/Arrow.png" id="2_twa1r"]
+[ext_resource type="Script" uid="uid://cgkf8o61hkqfl" path="res://Max.cs" id="5_frd20"]
+[ext_resource type="Script" uid="uid://dvurh01wk877n" path="res://Fireball.cs" id="5_uispk"]
+[ext_resource type="Texture2D" uid="uid://dky6rs5pi3tty" path="res://textures/Weapons/Iron Spear.png" id="6_ob42r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2nk3"]
+size = Vector2(3, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o2nk3"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7kvw3"]
+radius = 3.0
 
 [node name="MageSpell" type="Node2D" unique_id=886942908]
 
-[node name="Arrow" type="Area2D" parent="." unique_id=517292054]
+[node name="Arrow" type="CharacterBody2D" parent="." unique_id=1180725434]
 visible = false
-script = ExtResource("1_mlvhm")
+script = ExtResource("2_hsr87")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Arrow" unique_id=990772439]
 rotation = 0.014696191
@@ -25,20 +37,18 @@ damping_max = 43.103
 color = Color(1, 0.3, 0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Arrow" unique_id=1449558704]
+texture_filter = 3
 rotation = 2.3561945
-scale = Vector2(0.10201151, 0.10201151)
+scale = Vector2(0.1020115, 0.1020115)
 texture = ExtResource("2_twa1r")
 
-[node name="PointLight2D" type="PointLight2D" parent="Arrow" unique_id=1099111037]
-scale = Vector2(0.6307471, 0.6307471)
-color = Color(1, 0.51666665, 0, 1)
-energy = 3.11
-shadow_enabled = true
-texture = ExtResource("2_784t3")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arrow" unique_id=1407488434]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_o2nk3")
 
-[node name="Fireball" type="Area2D" parent="." unique_id=1356025917]
+[node name="Fireball" type="CharacterBody2D" parent="." unique_id=609216734]
 visible = false
-script = ExtResource("1_mlvhm")
+script = ExtResource("5_uispk")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Fireball" unique_id=2077856712]
 rotation = 0.014696191
@@ -55,6 +65,7 @@ damping_max = 43.103
 color = Color(1, 0.3, 0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Fireball" unique_id=165041698]
+texture_filter = 3
 scale = Vector2(0.10201151, 0.10201151)
 texture = ExtResource("2_784t3")
 
@@ -64,3 +75,19 @@ color = Color(1, 0.51666665, 0, 1)
 energy = 3.11
 shadow_enabled = true
 texture = ExtResource("2_784t3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fireball" unique_id=1579698267]
+shape = SubResource("CircleShape2D_o2nk3")
+
+[node name="Max" type="CharacterBody2D" parent="." unique_id=1332205225]
+script = ExtResource("5_frd20")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Max" unique_id=1776595401]
+shape = SubResource("CircleShape2D_7kvw3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Max" unique_id=755979382]
+texture_filter = 3
+position = Vector2(-1.9073486e-06, 0)
+rotation = 2.3561945
+scale = Vector2(0.16609429, 0.16609429)
+texture = ExtResource("6_ob42r")

@@ -1,94 +1,127 @@
 using Godot;
 
-public partial class MageSpell : Area2D
+public partial class MageSpell : CharacterBody2D
 {
-    [ExportCategory("Movement")]
-    [Export] public float MinimumSpeed { get; set; } = 120.0f;
-    [Export] public float MaximumSpeed { get; set; } = 500.0f;
-    [Export] public float Lifetime { get; set; } = 4.0f;
+	[ExportCategory("Movement")]
+	[Export] public float MinimumSpeed { get; set; } = 120.0f;
+	[Export] public float MaximumSpeed { get; set; } = 500.0f;
+	[Export] public float Lifetime { get; set; } = 4.0f;
+	[Export] public bool RotateTowardsMovement { get; set; } = true;
 
-    [ExportCategory("Power")]
-    [Export] public float MinimumDamage { get; set; } = 1.0f;
-    [Export] public float MaximumDamage { get; set; } = 10.0f;
-    [Export] public float MinimumScaleMultiplier { get; set; } = 0.7f;
-    [Export] public float MaximumScaleMultiplier { get; set; } = 1.4f;
+	[ExportCategory("Power")]
+	[Export] public float MinimumDamage { get; set; } = 1.0f;
+	[Export] public float MaximumDamage { get; set; } = 10.0f;
+	[Export] public float MinimumScaleMultiplier { get; set; } = 0.7f;
+	[Export] public float MaximumScaleMultiplier { get; set; } = 1.4f;
 
-    public float Damage { get; private set; }
-    public float Charge { get; private set; }
+	public float Damage { get; protected set; }
+	public float Charge { get; protected set; }
 
-    private Vector2 velocity;
-    private Vector2 startingScale;
-    private float remainingLifetime;
-    private bool launched;
+	protected bool IsMoving;
+	protected float RemainingLifetime;
 
-    public override void _Ready()
-    {
-        startingScale = Scale;
-        SetPhysicsProcess(false);
-    }
+	private Vector2 startingScale;
 
-    public void Launch(Vector2 direction, float charge)
-    {
-        direction = direction.Normalized();
+	public override void _Ready()
+	{
+		startingScale = Scale;
+		SetPhysicsProcess(false);
+	}
 
-        if (direction.LengthSquared() < 0.001f)
-            direction = Vector2.Right;
+	public virtual void Launch(Vector2 direction, float charge)
+	{
+		direction = direction.Normalized();
 
-        Charge = Mathf.Clamp(charge, 0.0f, 1.0f);
+		if (direction.LengthSquared() < 0.001f)
+			direction = Vector2.Right;
 
-        float speed = Mathf.Lerp(
-            MinimumSpeed,
-            MaximumSpeed,
-            Charge
-        );
+		Charge = Mathf.Clamp(charge, 0.0f, 1.0f);
 
-        Damage = Mathf.Lerp(
-            MinimumDamage,
-            MaximumDamage,
-            Charge
-        );
+		float speed = Mathf.Lerp(
+			MinimumSpeed,
+			MaximumSpeed,
+			Charge
+		);
 
-        float scaleMultiplier = Mathf.Lerp(
-            MinimumScaleMultiplier,
-            MaximumScaleMultiplier,
-            Charge
-        );
+		Damage = Mathf.Lerp(
+			MinimumDamage,
+			MaximumDamage,
+			Charge
+		);
 
-        velocity = direction * speed;
-        Scale = startingScale * scaleMultiplier;
-        Rotation = direction.Angle();
+		float scaleMultiplier = Mathf.Lerp(
+			MinimumScaleMultiplier,
+			MaximumScaleMultiplier,
+			Charge
+		);
 
-        remainingLifetime = Lifetime;
-        launched = true;
+		Velocity = direction * speed;
+		Scale = startingScale * scaleMultiplier;
+		Rotation = direction.Angle();
 
-        Visible = true;
-        Monitoring = true;
-        Monitorable = true;
+		RemainingLifetime = Lifetime;
+		IsMoving = true;
+		Visible = true;
 
-        CpuParticles2D particles =
-            GetNodeOrNull<CpuParticles2D>("CPUParticles2D");
+		CpuParticles2D particles =
+			GetNodeOrNull<CpuParticles2D>("CPUParticles2D");
 
-        if (particles != null)
-        {
-            particles.Restart();
-            particles.Emitting = true;
-        }
+		if (particles != null)
+		{
+			particles.Restart();
+			particles.Emitting = true;
+		}
 
-        SetPhysicsProcess(true);
-    }
+		OnLaunched();
+		SetPhysicsProcess(true);
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        if (!launched)
-            return;
+	public override void _PhysicsProcess(double delta)
+	{
+		float dt = (float)delta;
 
-        float dt = (float)delta;
+		if (IsMoving)
+		{
+			BeforeMovement(dt);
 
-        GlobalPosition += velocity * dt;
+			if (RotateTowardsMovement &&
+				Velocity.LengthSquared() > 0.001f)
+			{
+				Rotation = Velocity.Angle();
+			}
 
-        remainingLifetime -= dt;
+			KinematicCollision2D collision =
+				MoveAndCollide(Velocity * dt);
 
-        if (remainingLifetime <= 0.0f)
-            QueueFree();
-    }
+			if (collision != null)
+			{
+				OnSpellCollision(collision);
+			}
+		}
+
+		RemainingLifetime -= dt;
+
+		if (RemainingLifetime <= 0.0f)
+			QueueFree();
+	}
+
+	protected virtual void OnLaunched()
+	{
+	}
+
+	protected virtual void BeforeMovement(float delta)
+	{
+	}
+
+	protected virtual void OnSpellCollision(
+		KinematicCollision2D collision)
+	{
+		QueueFree();
+	}
+
+	protected void StopMoving()
+	{
+		Velocity = Vector2.Zero;
+		IsMoving = false;
+	}
 }

@@ -9,7 +9,8 @@ public partial class SpellCTR : Node
     private readonly Dictionary<int, string> spells = new()
     {
         { 1, "Fireball" }, //Max dodawaj tutaj spele by można było je używać, dodam jeszcze drugie takie (np.UnlockedSpells) albo ty dodaj idk
-        { 2, "Arrow" } // ta strzała spell jest tylko testowa by wiedzieć czy zmienia spele jak chcesz to możesz ją usunąć
+        { 2, "Arrow" }, // ta strzała spell jest tylko testowa by wiedzieć czy zmienia spele jak chcesz to możesz ją usunąć
+        { 3, "Max" }
     };
 
     public override void _Ready()

@@ -19,26 +19,22 @@ public partial class Player : CharacterBody2D
     {
         Vector2 velocity = Velocity;
 
-        // Gravity
         if (!IsOnFloor())
         {
             velocity += GetGravity() * (float)delta;
         }
 
-        // Jump
         if (Input.IsActionJustPressed("jump") && IsOnFloor())
         {
             velocity.Y = JumpVelocity;
         }
 
-        // Left / right movement
         float direction = Input.GetAxis("move_left", "move_right");
 
         if (direction != 0)
         {
             velocity.X = direction * Speed;
 
-            // Flip sprite depending on direction
             animatedSprite.FlipH = direction < 0;
         }
         else
