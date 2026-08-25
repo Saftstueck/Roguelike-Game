@@ -23,9 +23,10 @@ public partial class WeaponCTR : Sprite2D
         Gun
     }
 
-    // Change this path if MageSpells.tscn is elsewhere.
     private static readonly PackedScene MageSpellsScene =
-        GD.Load<PackedScene>("res://MageSpell.tscn");
+        ResourceLoader.Load<PackedScene>(
+            "res://MageSpell.tscn"
+        );
 
     [ExportCategory("Placement")]
     [Export] public float DistanceFromPlayer { get; set; } = 32.0f;
@@ -108,11 +109,11 @@ public partial class WeaponCTR : Sprite2D
 
     private bool meleeSwinging;
     private float meleeTimer;
-    private float meleeCooldownTimer = 100.0f;
+    private float meleeCooldownTimer = 999.0f;
 
     private bool magicCharging;
     private float magicCharge;
-    private float magicCooldownTimer = 50.0f;
+    private float magicCooldownTimer = 999.0f;
 
     private bool bowDrawing;
     private string bowFolder;
@@ -128,6 +129,13 @@ public partial class WeaponCTR : Sprite2D
 
     public override void _Ready()
     {
+        player = GetParent() as Node2D;
+
+        if (player == null)
+        {
+            SetProcess(false);
+            return;
+        }
 
         if (MageSpellsScene != null)
         {
@@ -224,11 +232,7 @@ public partial class WeaponCTR : Sprite2D
         }
 
         UpdateAimLag(aimAngle, dt);
-
-        UpdateMovementTilt(
-            globalDirection,
-            dt
-        );
+        UpdateMovementTilt(globalDirection, dt);
 
         UpdateWeaponTransform(
             aimDirection,
@@ -315,10 +319,7 @@ public partial class WeaponCTR : Sprite2D
         {
             float charge = Mathf.Clamp(
                 bowHoldTimer /
-                Mathf.Max(
-                    BowFullDrawTime,
-                    0.001f
-                ),
+                Mathf.Max(BowFullDrawTime, 0.001f),
                 0.0f,
                 1.0f
             );
@@ -418,14 +419,22 @@ public partial class WeaponCTR : Sprite2D
         float charge,
         float spawnDistance)
     {
+        if (mageSpellsLibrary == null)
+            return;
 
         MageSpell template =
             mageSpellsLibrary.GetNodeOrNull<MageSpell>(
                 new NodePath(spellName)
             );
 
+        if (template == null)
+            return;
+
         MageSpell spell =
             template.Duplicate() as MageSpell;
+
+        if (spell == null)
+            return;
 
         GetTree().CurrentScene.AddChild(spell);
 
@@ -470,6 +479,9 @@ public partial class WeaponCTR : Sprite2D
                 normal = bowNormal1;
                 break;
         }
+
+        if (diffuse == null)
+            return;
 
         CanvasTexture canvasTexture = new()
         {
@@ -523,7 +535,7 @@ public partial class WeaponCTR : Sprite2D
         if (!ResourceLoader.Exists(path))
             return null;
 
-        return GD.Load<Texture2D>(path);
+        return ResourceLoader.Load<Texture2D>(path);
     }
 
     private void UpdateWeaponTransform(
