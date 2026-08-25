@@ -6,6 +6,14 @@ using System.Text.RegularExpressions;
 
 public partial class Game : Node2D
 {
+    private static readonly PackedScene MageSpellsScene =
+        GD.Load<PackedScene>("res://MageSpells/MageSpell.tscn");
+
+    private Node mageSpellsLibrary;
+
+    [Export] public string SelectedSpell = "Fireball";
+    [Export] public float SpellSpawnDistance = 16.0f;
+    
     [Export(PropertyHint.Dir)]
     public string WeaponFolder { get; set; } =
         "res://textures/Weapons";

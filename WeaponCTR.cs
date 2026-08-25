@@ -4,82 +4,123 @@ using System.IO;
 
 public partial class WeaponCTR : Sprite2D
 {
+    private enum WeaponKind
+    {
+        Unknown,
+        Sword,
+        GreatSword,
+        Spear,
+        Bow,
+        Wand,
+        Staff,
+        Axe,
+        Sphere,
+        Hammer,
+        Shield,
+        Arrow,
+        Dagger,
+        Crossbow,
+        Gun
+    }
+
+    private static readonly PackedScene MageSpellsScene =
+        GD.Load<PackedScene>("res://MageSpell.tscn");
+
     [ExportCategory("Placement")]
-    [Export] public float DistanceFromPlayer { get; set; } = 16.0f;
+    [Export] public float DistanceFromPlayer { get; set; } = 32.0f;
     [Export] public Vector2 OrbitCenterOffset { get; set; } = Vector2.Zero;
     [Export] public float BaseScale { get; set; } = 0.6f;
-    [Export] public float PositionSpeed { get; set; } = 25.0f;
-    [Export] public float RotationSpeed { get; set; } = 25.0f;
+    [Export] public bool FlipOnLeft { get; set; } = true;
+    [Export] public bool ReverseRotationOffsetWhenFlipped { get; set; } = true;
+
+    [ExportCategory("Following")]
+    [Export] public float PositionFollowSpeed { get; set; } = 25.0f;
+    [Export] public float RotationFollowSpeed { get; set; } = 25.0f;
+    [Export] public float ScaleFollowSpeed { get; set; } = 20.0f;
+
+    [ExportCategory("Mouse Feeling")]
+    [Export] public float AimLagStrength { get; set; } = 0.035f;
+    [Export] public float MaximumAimLagDegrees { get; set; } = 15.0f;
+    [Export] public float AimLagFollowSpeed { get; set; } = 15.0f;
+
+    [ExportCategory("Movement Feeling")]
+    [Export] public float MovementTiltDegrees { get; set; } = 12.0f;
+    [Export] public float MovementSpeedForMaximumTilt { get; set; } = 250.0f;
+    [Export] public float MovementTiltFollowSpeed { get; set; } = 12.0f;
 
     [ExportCategory("Input")]
     [Export] public string AttackAction { get; set; } = "weapon_swing";
+    [Export] public bool RepeatMeleeWhileHeld { get; set; } = false;
 
     [ExportCategory("Melee")]
-    [Export] public float MeleeDuration { get; set; } = 0.25f;
-    [Export] public float MeleeCooldown { get; set; } = 0.2f;
-    [Export] public float MeleeForwardDistance { get; set; } = 20.0f;
-    [Export] public float MeleeRotationDegrees { get; set; } = -25.0f;
-    [Export] public float MeleeScaleBoost { get; set; } = 0.08f;
+    [Export] public float SwingDuration { get; set; } = 0.25f;
+    [Export] public float SwingCooldown { get; set; } = 0.2f;
+    [Export] public float SwingForwardDistance { get; set; } = 20.0f;
+    [Export] public float SwingRotationDegrees { get; set; } = -25.0f;
+    [Export] public float SwingScaleBoost { get; set; } = 0.08f;
+    [Export] public float SwingCurvePower { get; set; } = 1.0f;
+    [Export] public bool ReverseSwingWhenFlipped { get; set; } = true;
 
     [ExportCategory("Bow")]
     [Export] public float BowFullDrawTime { get; set; } = 0.35f;
 
-    [ExportCategory("Wand And Staff")]
-    [Export] public float MagicChargeTime { get; set; } = 0.4f;
-    [Export] public float MagicCooldown { get; set; } = 0.3f;
-    [Export] public float MagicPullbackDistance { get; set; } = 10.0f;
-    [Export] public float SpellSpawnDistance { get; set; } = 8.0f;
-    [Export] public PackedScene MageSpellScene { get; set; }
-
-    [ExportCategory("Movement Feeling")]
-    [Export] public float MovementTiltDegrees { get; set; } = 10.0f;
-    [Export] public float SpeedForMaximumTilt { get; set; } = 250.0f;
-    [Export] public float MovementTiltSpeed { get; set; } = 12.0f;
+    [ExportCategory("Magic")]
+    [Export] public string SelectedSpell { get; set; } = "Fireball";
+    [Export] public float MagicChargeTime { get; set; } = 0.5f;
+    [Export] public float MagicCooldown { get; set; } = 0.25f;
+    [Export] public float MagicPullbackDistance { get; set; } = 12.0f;
+    [Export] public float MagicPullbackCurvePower { get; set; } = 1.0f;
+    [Export] public float MagicScaleBoost { get; set; } = 0.08f;
+    [Export] public float SpellSpawnDistance { get; set; } = 16.0f;
 
     [ExportCategory("Rotation Offsets")]
-    [Export] public float GlobalOffset { get; set; } = 0.0f;
-    [Export] public bool ReverseOffsetWhenFlipped { get; set; } = true;
-    [Export] public float DefaultOffset { get; set; } = 0.0f;
-    [Export] public float SwordOffset { get; set; } = 135.0f;
-    [Export] public float GreatSwordOffset { get; set; } = 135.0f;
-    [Export] public float SpearOffset { get; set; } = 135.0f;
-    [Export] public float BowOffset { get; set; } = 135.0f;
-    [Export] public float WandOffset { get; set; } = 45.0f;
-    [Export] public float StaffOffset { get; set; } = 45.0f;
-    [Export] public float AxeOffset { get; set; } = 135.0f;
-    [Export] public float SphereOffset { get; set; } = 230.0f;
-    [Export] public float HammerOffset { get; set; } = 135.0f;
-    [Export] public float ShieldOffset { get; set; } = 150.0f;
-    [Export] public float DaggerOffset { get; set; } = 45.0f;
-    [Export] public float CrossbowOffset { get; set; } = 0.0f;
-    [Export] public float GunOffset { get; set; } = 0.0f;
+    [Export] public float GlobalRotationOffset { get; set; } = 0.0f;
+    [Export] public float DefaultRotationOffset { get; set; } = 0.0f;
+    [Export] public float SwordRotationOffset { get; set; } = 135.0f;
+    [Export] public float GreatSwordRotationOffset { get; set; } = 135.0f;
+    [Export] public float SpearRotationOffset { get; set; } = 135.0f;
+    [Export] public float BowRotationOffset { get; set; } = 135.0f;
+    [Export] public float WandRotationOffset { get; set; } = 45.0f;
+    [Export] public float StaffRotationOffset { get; set; } = 45.0f;
+    [Export] public float AxeRotationOffset { get; set; } = 135.0f;
+    [Export] public float SphereRotationOffset { get; set; } = 230.0f;
+    [Export] public float HammerRotationOffset { get; set; } = 135.0f;
+    [Export] public float ShieldRotationOffset { get; set; } = 150.0f;
+    [Export] public float ArrowRotationOffset { get; set; } = 45.0f;
+    [Export] public float DaggerRotationOffset { get; set; } = 45.0f;
+    [Export] public float CrossbowRotationOffset { get; set; } = 0.0f;
+    [Export] public float GunRotationOffset { get; set; } = 0.0f;
 
     private Node2D player;
+    private Node mageSpellsLibrary;
 
-    private Texture2D lastTexture;
-    private string weaponName = "";
-    private float weaponOffset;
+    private WeaponKind weaponKind = WeaponKind.Unknown;
+    private Texture2D previouslyCheckedTexture;
+    private float textureRotationOffset;
 
-    private bool isBow;
-    private bool isMagic;
+    private Vector2 previousPlayerPosition;
+    private float previousAimAngle;
+    private float aimLag;
+    private float movementTilt;
 
-    private float meleeTimer = -1.0f;
+    private bool meleeSwinging;
+    private float meleeTimer;
     private float meleeCooldownTimer = 999.0f;
 
-    private bool isMagicCharging;
+    private bool magicCharging;
     private float magicCharge;
     private float magicCooldownTimer = 999.0f;
 
-    private float bowTimer;
+    private string bowFolder;
+    private float bowHoldTimer;
     private int bowFrame = 1;
 
-    private float movementTilt;
-    private Vector2 previousPlayerPosition;
-
-    private string bowFolder = "";
-    private readonly Texture2D[] bowTextures = new Texture2D[4];
-    private readonly Texture2D[] bowNormals = new Texture2D[4];
-
+    private Texture2D bow1;
+    private Texture2D bow2;
+    private Texture2D bow3;
+    private Texture2D bowNormal1;
+    private Texture2D bowNormal2;
+    private Texture2D bowNormal3;
 
     public override void _Ready()
     {
@@ -87,282 +128,440 @@ public partial class WeaponCTR : Sprite2D
 
         if (player == null)
         {
-            GD.PushError(
-                "Error idk."
-            );
-
+            GD.PushError("Error.");
             SetProcess(false);
             return;
         }
 
+        if (MageSpellsScene != null)
+        {
+            mageSpellsLibrary = MageSpellsScene.Instantiate();
+        }
+        else
+        {
+            GD.PushError("Sadly Max Could not preload res://MageSpell.tscn");
+        }
+
+        Vector2 direction =
+            player.ToLocal(GetGlobalMousePosition()).Normalized();
+
+        if (direction.LengthSquared() < 0.001f)
+            direction = Vector2.Right;
+
+        previousAimAngle = direction.Angle();
         previousPlayerPosition = player.GlobalPosition;
 
-        RefreshWeapon(true);
-
-        Vector2 direction = GetAimDirection();
+        UpdateWeaponInformation(true);
 
         Position =
             OrbitCenterOffset +
             direction * DistanceFromPlayer;
 
-        Rotation = direction.Angle();
-    }
+        Rotation =
+            direction.Angle() +
+            Mathf.DegToRad(
+                GlobalRotationOffset +
+                textureRotationOffset
+            );
 
+        Scale = Vector2.One * BaseScale;
+    }
 
     public override void _Process(double delta)
     {
         float dt = (float)delta;
 
-        RefreshWeapon(false);
+        if (dt <= 0.0f || player == null)
+            return;
 
-        Vector2 direction = GetAimDirection();
-        Vector2 globalDirection = GetGlobalAimDirection();
+        UpdateWeaponInformation(false);
 
-        bool flipped = direction.X < 0.0f;
+        Vector2 mouseGlobal = GetGlobalMousePosition();
+        Vector2 mouseLocal = player.ToLocal(mouseGlobal);
 
+        Vector2 aimDirection =
+            mouseLocal.LengthSquared() > 0.001f
+                ? mouseLocal.Normalized()
+                : Vector2.FromAngle(previousAimAngle);
+
+        Vector2 globalDirection =
+            (mouseGlobal - player.GlobalPosition).Normalized();
+
+        if (globalDirection.LengthSquared() < 0.001f)
+            globalDirection = Vector2.Right;
+
+        float aimAngle = aimDirection.Angle();
         float animationAmount = 0.0f;
 
-        if (isBow)
+        if (weaponKind == WeaponKind.Bow)
         {
+            CancelMelee();
+            CancelMagic();
             UpdateBow(dt);
         }
-        else if (isMagic)
+        else if (IsMagicWeapon())
         {
-            UpdateMagic(dt, globalDirection);
+            CancelMelee();
+            animationAmount = UpdateMagic(dt, globalDirection);
         }
         else
         {
+            CancelMagic();
             animationAmount = UpdateMelee(dt);
         }
 
+        UpdateAimLag(aimAngle, dt);
         UpdateMovementTilt(globalDirection, dt);
 
-        float distanceChange = 0.0f;
-        float attackRotation = 0.0f;
-        float scaleBoost = 0.0f;
-
-        if (isMagic)
-        {
-            distanceChange =
-                -magicCharge * MagicPullbackDistance;
-        }
-        else if (!isBow)
-        {
-            distanceChange =
-                animationAmount * MeleeForwardDistance;
-
-            attackRotation =
-                animationAmount * MeleeRotationDegrees *
-                (flipped ? -1.0f : 1.0f);
-
-            scaleBoost =
-                animationAmount * MeleeScaleBoost;
-        }
-
-        Vector2 targetPosition =
-            OrbitCenterOffset +
-            direction *
-            (DistanceFromPlayer + distanceChange);
-
-        Position = Position.Lerp(
-            targetPosition,
-            Smooth(PositionSpeed, dt)
+        UpdateWeaponTransform(
+            aimDirection,
+            aimAngle,
+            animationAmount,
+            dt
         );
 
-        float offset = weaponOffset;
-
-        if (flipped && ReverseOffsetWhenFlipped)
-        {
-            offset = -offset;
-        }
-
-        float targetRotation =
-            direction.Angle() +
-            movementTilt +
-            Mathf.DegToRad(
-                GlobalOffset +
-                offset +
-                attackRotation
-            );
-
-        Rotation = Mathf.LerpAngle(
-            Rotation,
-            targetRotation,
-            Smooth(RotationSpeed, dt)
-        );
-
-        FlipV = flipped;
-
-        float finalScale =
-            BaseScale * (1.0f + scaleBoost);
-
-        Scale = Vector2.One * finalScale;
-
+        previousAimAngle = aimAngle;
         previousPlayerPosition = player.GlobalPosition;
     }
-
-
-    private Vector2 GetAimDirection()
-    {
-        Vector2 mouseLocal =
-            player.ToLocal(GetGlobalMousePosition());
-
-        return mouseLocal.LengthSquared() > 0.0001f
-            ? mouseLocal.Normalized()
-            : Vector2.Right;
-    }
-
-
-    private Vector2 GetGlobalAimDirection()
-    {
-        Vector2 direction =
-            GetGlobalMousePosition() -
-            player.GlobalPosition;
-
-        return direction.LengthSquared() > 0.0001f
-            ? direction.Normalized()
-            : Vector2.Right;
-    }
-
 
     private float UpdateMelee(float dt)
     {
         meleeCooldownTimer += dt;
 
-        if (Input.IsActionJustPressed(AttackAction) &&
-            meleeTimer < 0.0f &&
-            meleeCooldownTimer >= MeleeCooldown)
+        bool attackRequested = RepeatMeleeWhileHeld
+            ? Input.IsActionPressed(AttackAction)
+            : Input.IsActionJustPressed(AttackAction);
+
+        if (attackRequested &&
+            !meleeSwinging &&
+            meleeCooldownTimer >= SwingCooldown)
         {
+            meleeSwinging = true;
             meleeTimer = 0.0f;
             meleeCooldownTimer = 0.0f;
         }
 
-        if (meleeTimer < 0.0f)
-        {
+        if (!meleeSwinging)
             return 0.0f;
-        }
 
         meleeTimer += dt;
 
         float progress = Mathf.Clamp(
-            meleeTimer /
-            Mathf.Max(MeleeDuration, 0.001f),
+            meleeTimer / Mathf.Max(SwingDuration, 0.001f),
             0.0f,
             1.0f
         );
 
-        float amount = Mathf.Max(
-            0.0f,
-            Mathf.Sin(progress * Mathf.Pi)
+        float amount = Mathf.Pow(
+            Mathf.Max(0.0f, Mathf.Sin(progress * Mathf.Pi)),
+            Mathf.Max(SwingCurvePower, 0.01f)
         );
 
         if (progress >= 1.0f)
         {
-            meleeTimer = -1.0f;
+            meleeSwinging = false;
+            meleeTimer = 0.0f;
         }
 
         return amount;
     }
 
-
-    private void UpdateBow(float dt)
-    {
-        bool held = Input.IsActionPressed(AttackAction);
-
-        if (Input.IsActionJustPressed(AttackAction))
-        {
-            bowTimer = 0.0f;
-            SetBowFrame(2);
-        }
-
-        if (held)
-        {
-            bowTimer += dt;
-
-            if (bowFrame == 1)
-            {
-                SetBowFrame(2);
-            }
-
-            if (bowTimer >= BowFullDrawTime)
-            {
-                SetBowFrame(3);
-            }
-        }
-        else
-        {
-            bowTimer = 0.0f;
-
-            if (bowFrame != 1)
-            {
-                // Strzała
-                SetBowFrame(1);
-            }
-        }
-    }
-
-
-    private void UpdateMagic(
+    private float UpdateMagic(
         float dt,
         Vector2 globalDirection)
     {
         magicCooldownTimer += dt;
 
         if (Input.IsActionJustPressed(AttackAction) &&
-            !isMagicCharging &&
+            !magicCharging &&
             magicCooldownTimer >= MagicCooldown)
         {
-            isMagicCharging = true;
+            magicCharging = true;
             magicCharge = 0.0f;
-            magicCooldownTimer = 0.0f;
         }
 
-        if (!isMagicCharging)
-        {
-            return;
-        }
+        if (!magicCharging)
+            return 0.0f;
 
         if (Input.IsActionPressed(AttackAction))
         {
-            magicCharge = Mathf.MoveToward(
+            magicCharge +=
+                dt / Mathf.Max(MagicChargeTime, 0.001f);
+
+            magicCharge = Mathf.Clamp(
                 magicCharge,
-                1.0f,
-                dt / Mathf.Max(MagicChargeTime, 0.001f)
+                0.0f,
+                1.0f
+            );
+        }
+        else
+        {
+            float releasedCharge = magicCharge;
+
+            magicCharging = false;
+            magicCharge = 0.0f;
+            magicCooldownTimer = 0.0f;
+
+            CastSelectedSpell(
+                globalDirection,
+                releasedCharge
             );
 
-            return;
+            return 0.0f;
         }
 
-        CastSpell(globalDirection);
-
-        isMagicCharging = false;
-        magicCharge = 0.0f;
+        return Mathf.Pow(
+            magicCharge,
+            Mathf.Max(MagicPullbackCurvePower, 0.01f)
+        );
     }
 
-
-    private void CastSpell(Vector2 direction)
+    private void CastSelectedSpell(
+        Vector2 direction,
+        float charge)
     {
-        if (MageSpellScene == null)
+        if (mageSpellsLibrary == null)
+        {
+            GD.PushWarning("Mage spell library was not loaded.");
+            return;
+        }
+
+        MageSpell template =
+            mageSpellsLibrary.GetNodeOrNull<MageSpell>(
+                new NodePath(SelectedSpell)
+            );
+
+        if (template == null)
         {
             GD.PushWarning(
-                "MageSpellScene no workie :( "
+                $"Spell '{SelectedSpell}' was not found " +
+                "inside MageSpell.tscn."
             );
 
             return;
         }
 
-        Node2D spell =
-            MageSpellScene.Instantiate<Node2D>();
+        MageSpell spell = template.Duplicate() as MageSpell;
+
+        if (spell == null)
+        {
+            GD.PushWarning(
+                $"spell not working idk why '{SelectedSpell}'."
+            );
+
+            return;
+        }
 
         GetTree().CurrentScene.AddChild(spell);
 
         spell.GlobalPosition =
             GlobalPosition +
-            direction * SpellSpawnDistance;
+            direction.Normalized() * SpellSpawnDistance;
 
-        spell.GlobalRotation = direction.Angle();
+        spell.Launch(direction, charge);
     }
 
+    private void UpdateBow(float dt)
+    {
+        if (Input.IsActionJustPressed(AttackAction))
+        {
+            bowHoldTimer = 0.0f;
+            SetBowFrame(2);
+        }
+
+        if (Input.IsActionPressed(AttackAction))
+        {
+            bowHoldTimer += dt;
+
+            if (bowHoldTimer >= BowFullDrawTime)
+                SetBowFrame(3);
+            else
+                SetBowFrame(2);
+        }
+        else
+        {
+            bowHoldTimer = 0.0f;
+            SetBowFrame(1);
+        }
+    }
+
+    private void SetBowFrame(int frame)
+    {
+        if (frame == bowFrame)
+            return;
+
+        Texture2D diffuse;
+        Texture2D normal;
+
+        switch (frame)
+        {
+            case 2:
+                diffuse = bow2;
+                normal = bowNormal2;
+                break;
+
+            case 3:
+                diffuse = bow3;
+                normal = bowNormal3;
+                break;
+
+            default:
+                frame = 1;
+                diffuse = bow1;
+                normal = bowNormal1;
+                break;
+        }
+
+        if (diffuse == null)
+            return;
+
+        CanvasTexture canvasTexture = new()
+        {
+            DiffuseTexture = diffuse,
+            NormalTexture = normal
+        };
+
+        Texture = canvasTexture;
+        previouslyCheckedTexture = Texture;
+        bowFrame = frame;
+    }
+
+    private void LoadBowTextures(string folder)
+    {
+        if (folder == bowFolder && bow1 != null)
+            return;
+
+        bowFolder = folder;
+
+        bow1 = LoadTexture($"{folder}/Bow1.png");
+        bow2 = LoadTexture($"{folder}/Bow2.png");
+        bow3 = LoadTexture($"{folder}/Bow3.png");
+
+        bowNormal1 = LoadTexture($"{folder}/Bow_n.png");
+        bowNormal2 = LoadTexture($"{folder}/Bow_n2.png");
+        bowNormal3 = LoadTexture($"{folder}/Bow_n3.png");
+    }
+
+    private static Texture2D LoadTexture(string path)
+    {
+        return ResourceLoader.Exists(path)
+            ? GD.Load<Texture2D>(path)
+            : null;
+    }
+
+    private void UpdateWeaponTransform(
+        Vector2 aimDirection,
+        float aimAngle,
+        float animationAmount,
+        float dt)
+    {
+        bool flipped =
+            FlipOnLeft && aimDirection.X < 0.0f;
+
+        FlipV = false;
+
+        bool magic = IsMagicWeapon();
+        bool bow = weaponKind == WeaponKind.Bow;
+
+        float animationDistance = 0.0f;
+
+        if (magic)
+        {
+            animationDistance =
+                -animationAmount * MagicPullbackDistance;
+        }
+        else if (!bow)
+        {
+            animationDistance =
+                animationAmount * SwingForwardDistance;
+        }
+
+        Vector2 targetPosition =
+            OrbitCenterOffset +
+            aimDirection *
+            (DistanceFromPlayer + animationDistance);
+
+        Position = Position.Lerp(
+            targetPosition,
+            SmoothWeight(PositionFollowSpeed, dt)
+        );
+
+        float rotationOffset = textureRotationOffset;
+
+        if (flipped && ReverseRotationOffsetWhenFlipped)
+            rotationOffset = -rotationOffset;
+
+        float swingRotation = 0.0f;
+
+        if (!magic && !bow)
+        {
+            swingRotation = SwingRotationDegrees;
+
+            if (flipped && ReverseSwingWhenFlipped)
+                swingRotation = -swingRotation;
+        }
+
+        float targetRotation =
+            aimAngle +
+            Mathf.DegToRad(
+                GlobalRotationOffset +
+                rotationOffset +
+                swingRotation * animationAmount
+            ) +
+            aimLag +
+            movementTilt;
+
+        Rotation = Mathf.LerpAngle(
+            Rotation,
+            targetRotation,
+            SmoothWeight(RotationFollowSpeed, dt)
+        );
+
+        float scaleBoost = 0.0f;
+
+        if (magic)
+            scaleBoost = MagicScaleBoost * animationAmount;
+        else if (!bow)
+            scaleBoost = SwingScaleBoost * animationAmount;
+
+        float finalSize =
+            BaseScale * (1.0f + scaleBoost);
+
+        Vector2 targetScale = new(
+            finalSize,
+            flipped ? -finalSize : finalSize
+        );
+
+        Scale = Scale.Lerp(
+            targetScale,
+            SmoothWeight(ScaleFollowSpeed, dt)
+        );
+    }
+
+    private void UpdateAimLag(float aimAngle, float dt)
+    {
+        float difference =
+            Mathf.Atan2(
+                Mathf.Sin(aimAngle - previousAimAngle),
+                Mathf.Cos(aimAngle - previousAimAngle)
+            );
+
+        float angularSpeed = difference / dt;
+        float maximumLag =
+            Mathf.DegToRad(MaximumAimLagDegrees);
+
+        float targetLag = Mathf.Clamp(
+            -angularSpeed * AimLagStrength,
+            -maximumLag,
+            maximumLag
+        );
+
+        aimLag = Mathf.Lerp(
+            aimLag,
+            targetLag,
+            SmoothWeight(AimLagFollowSpeed, dt)
+        );
+    }
 
     private void UpdateMovementTilt(
         Vector2 aimDirection,
@@ -376,189 +575,185 @@ public partial class WeaponCTR : Sprite2D
             aimDirection.X * velocity.Y -
             aimDirection.Y * velocity.X;
 
-        float amount = SpeedForMaximumTilt <= 0.0f
-            ? 0.0f
-            : Mathf.Clamp(
-                sidewaysSpeed / SpeedForMaximumTilt,
-                -1.0f,
-                1.0f
-            );
+        float normalizedSpeed =
+            MovementSpeedForMaximumTilt > 0.0f
+                ? Mathf.Clamp(
+                    sidewaysSpeed /
+                    MovementSpeedForMaximumTilt,
+                    -1.0f,
+                    1.0f
+                )
+                : 0.0f;
 
         float targetTilt =
-            -amount *
+            -normalizedSpeed *
             Mathf.DegToRad(MovementTiltDegrees);
 
         movementTilt = Mathf.Lerp(
             movementTilt,
             targetTilt,
-            Smooth(MovementTiltSpeed, dt)
+            SmoothWeight(MovementTiltFollowSpeed, dt)
         );
     }
 
-
-    private void RefreshWeapon(bool force)
+    private void UpdateWeaponInformation(bool force)
     {
-        if (!force && Texture == lastTexture)
-        {
+        if (!force && Texture == previouslyCheckedTexture)
             return;
-        }
 
-        lastTexture = Texture;
+        previouslyCheckedTexture = Texture;
 
         Texture2D diffuse = GetDiffuseTexture();
 
         if (diffuse == null ||
             string.IsNullOrEmpty(diffuse.ResourcePath))
         {
+            weaponKind = WeaponKind.Unknown;
+            textureRotationOffset = DefaultRotationOffset;
             return;
         }
 
-        string texturePath = diffuse.ResourcePath;
+        string weaponName =
+            Path.GetFileNameWithoutExtension(
+                diffuse.ResourcePath
+            );
 
-        weaponName =
-            Path.GetFileNameWithoutExtension(texturePath);
+        WeaponKind detected =
+            DetectWeaponKind(weaponName);
 
-        isBow = Has("Bow");
-        isMagic = Has("Wand") || Has("Staff");
-        weaponOffset = FindWeaponOffset();
-
-        meleeTimer = -1.0f;
-        isMagicCharging = false;
-        magicCharge = 0.0f;
-
-        if (isBow)
+        if (detected != weaponKind)
         {
-            int slash = texturePath.LastIndexOf('/');
+            weaponKind = detected;
+
+            CancelMelee();
+            CancelMagic();
+
+            meleeCooldownTimer = 999.0f;
+            magicCooldownTimer = 999.0f;
+            bowHoldTimer = 0.0f;
+        }
+
+        textureRotationOffset =
+            GetRotationOffset(weaponKind);
+
+        if (weaponKind == WeaponKind.Bow)
+        {
+            int slash =
+                diffuse.ResourcePath.LastIndexOf('/');
 
             if (slash >= 0)
             {
                 LoadBowTextures(
-                    texturePath.Substring(0, slash)
+                    diffuse.ResourcePath.Substring(0, slash)
                 );
             }
 
-            bowFrame = weaponName.Equals(
-                "Bow2",
-                StringComparison.OrdinalIgnoreCase)
-                ? 2
-                : weaponName.Equals(
-                    "Bow3",
-                    StringComparison.OrdinalIgnoreCase)
-                    ? 3
-                    : 1;
-        }
-        else
-        {
-            bowFrame = 1;
-            bowTimer = 0.0f;
+            bowFrame = DetectBowFrame(weaponName);
         }
     }
 
-
     private Texture2D GetDiffuseTexture()
     {
-        if (Texture is CanvasTexture canvasTexture &&
-            canvasTexture.DiffuseTexture != null)
+        if (Texture is CanvasTexture canvas &&
+            canvas.DiffuseTexture != null)
         {
-            return canvasTexture.DiffuseTexture;
+            return canvas.DiffuseTexture;
         }
 
         return Texture;
     }
 
-
-    private void LoadBowTextures(string folder)
+    private static WeaponKind DetectWeaponKind(string name)
     {
-        if (folder == bowFolder &&
-            bowTextures[1] != null)
-        {
-            return;
-        }
+        if (Contains(name, "Great Sword")) return WeaponKind.GreatSword;
+        if (Contains(name, "Crossbow")) return WeaponKind.Crossbow;
+        if (Contains(name, "Sword")) return WeaponKind.Sword;
+        if (Contains(name, "Spear")) return WeaponKind.Spear;
+        if (Contains(name, "Bow")) return WeaponKind.Bow;
+        if (Contains(name, "Wand")) return WeaponKind.Wand;
+        if (Contains(name, "Staff")) return WeaponKind.Staff;
+        if (Contains(name, "Axe")) return WeaponKind.Axe;
+        if (Contains(name, "Sphere")) return WeaponKind.Sphere;
+        if (Contains(name, "Hammer")) return WeaponKind.Hammer;
+        if (Contains(name, "Shield")) return WeaponKind.Shield;
+        if (Contains(name, "Arrow")) return WeaponKind.Arrow;
+        if (Contains(name, "Dagger")) return WeaponKind.Dagger;
+        if (Contains(name, "Gun")) return WeaponKind.Gun;
 
-        bowFolder = folder;
-
-        for (int frame = 1; frame <= 3; frame++)
-        {
-            bowTextures[frame] = LoadTexture(
-                $"{folder}/Bow{frame}.png"
-            );
-
-            string normalName = frame == 1
-                ? "Bow_n.png"
-                : $"Bow_n{frame}.png";
-
-            bowNormals[frame] = LoadTexture(
-                $"{folder}/{normalName}"
-            );
-        }
+        return WeaponKind.Unknown;
     }
 
-
-    private void SetBowFrame(int frame)
+    private float GetRotationOffset(WeaponKind kind)
     {
-        if (frame == bowFrame ||
-            bowTextures[frame] == null)
+        return kind switch
         {
-            return;
-        }
-
-        CanvasTexture canvasTexture = new()
-        {
-            DiffuseTexture = bowTextures[frame],
-            NormalTexture = bowNormals[frame]
+            WeaponKind.Sword => SwordRotationOffset,
+            WeaponKind.GreatSword => GreatSwordRotationOffset,
+            WeaponKind.Spear => SpearRotationOffset,
+            WeaponKind.Bow => BowRotationOffset,
+            WeaponKind.Wand => WandRotationOffset,
+            WeaponKind.Staff => StaffRotationOffset,
+            WeaponKind.Axe => AxeRotationOffset,
+            WeaponKind.Sphere => SphereRotationOffset,
+            WeaponKind.Hammer => HammerRotationOffset,
+            WeaponKind.Shield => ShieldRotationOffset,
+            WeaponKind.Arrow => ArrowRotationOffset,
+            WeaponKind.Dagger => DaggerRotationOffset,
+            WeaponKind.Crossbow => CrossbowRotationOffset,
+            WeaponKind.Gun => GunRotationOffset,
+            _ => DefaultRotationOffset
         };
-
-        Texture = canvasTexture;
-        lastTexture = Texture;
-        bowFrame = frame;
     }
 
-
-    private float FindWeaponOffset()
+    private static int DetectBowFrame(string name)
     {
-        if (Has("Great Sword")) return GreatSwordOffset;
-        if (Has("Crossbow")) return CrossbowOffset;
-        if (Has("Sword")) return SwordOffset;
-        if (Has("Spear")) return SpearOffset;
-        if (Has("Bow")) return BowOffset;
-        if (Has("Wand")) return WandOffset;
-        if (Has("Staff")) return StaffOffset;
-        if (Has("Axe")) return AxeOffset;
-        if (Has("Sphere")) return SphereOffset;
-        if (Has("Hammer")) return HammerOffset;
-        if (Has("Shield")) return ShieldOffset;
-        if (Has("Dagger")) return DaggerOffset;
-        if (Has("Gun")) return GunOffset;
+        if (name.Equals("Bow2", StringComparison.OrdinalIgnoreCase))
+            return 2;
 
-        return DefaultOffset;
+        if (name.Equals("Bow3", StringComparison.OrdinalIgnoreCase))
+            return 3;
+
+        return 1;
     }
 
-
-    private bool Has(string type)
+    private static bool Contains(string name, string type)
     {
-        return weaponName.Contains(
+        return name.IndexOf(
             type,
             StringComparison.OrdinalIgnoreCase
-        );
+        ) >= 0;
     }
 
-
-    private static Texture2D LoadTexture(string path)
+    private bool IsMagicWeapon()
     {
-        return ResourceLoader.Exists(path)
-            ? GD.Load<Texture2D>(path)
-            : null;
+        return
+            weaponKind == WeaponKind.Wand ||
+            weaponKind == WeaponKind.Staff;
     }
 
+    private void CancelMelee()
+    {
+        meleeSwinging = false;
+        meleeTimer = 0.0f;
+    }
 
-    private static float Smooth(
-        float speed,
-        float delta)
+    private void CancelMagic()
+    {
+        magicCharging = false;
+        magicCharge = 0.0f;
+    }
+
+    private static float SmoothWeight(float speed, float dt)
     {
         return 1.0f -
-               Mathf.Exp(
-                   -Mathf.Max(speed, 0.01f) *
-                   delta
-               );
+               Mathf.Exp(-Mathf.Max(speed, 0.01f) * dt);
+    }
+
+    public override void _ExitTree()
+    {
+        if (GodotObject.IsInstanceValid(mageSpellsLibrary))
+            mageSpellsLibrary.Free();
+
+        mageSpellsLibrary = null;
     }
 }

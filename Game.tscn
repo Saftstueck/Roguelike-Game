@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://drt5kdppsyx6p" path="res://Wepoin_Texture.cs" id="1_lvtmh"]
 [ext_resource type="Texture2D" uid="uid://802cqrri8fg" path="res://textures/tileset/atlas_floor-16x16.png" id="1_wbfu4"]
 [ext_resource type="Script" uid="uid://6pnmi8vxvwsh" path="res://Game.cs" id="1_yyih5"]
+[ext_resource type="Script" uid="uid://culuchthxxls2" path="res://SpellCTR.cs" id="2_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://bphiurpdkdrfu" path="res://textures/tileset/atlas_walls_low-16x16.png" id="2_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://blk24kydqm6as" path="res://textures/adve/tiles.png" id="3_gwjdr"]
 [ext_resource type="PackedScene" uid="uid://bx8lacr3q6m8k" path="res://Player.tscn" id="6_r0x5m"]
@@ -261,7 +262,8 @@ fill_from = Vector2(0.5, 0.5)
 position = Vector2(561, 296)
 script = ExtResource("1_yyih5")
 
-[node name="Node2D2" type="Node2D" parent="." unique_id=685700754]
+[node name="SpellCTR" type="Node2D" parent="." unique_id=1633587479]
+script = ExtResource("2_3mrqo")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=63985419]
 position = Vector2(51, -4)

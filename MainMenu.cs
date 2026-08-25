@@ -20,7 +20,7 @@ public partial class MainMenu : Control
 
         if (startButton == null)
         {
-            GD.PushWarning($"MainMenu: Button '{startButtonPath}' not found.");
+            // nie wiem jak to inaczej zrobić jak chcesz to zrub jakieś if not czy coś
         }
         else
         {
@@ -31,7 +31,7 @@ public partial class MainMenu : Control
 
         if (optionsButton == null)
         {
-            GD.PushWarning($"MainMenu: Button '{optionsButtonPath}' not found.");
+            // tu tak samo
         }
         else
         {

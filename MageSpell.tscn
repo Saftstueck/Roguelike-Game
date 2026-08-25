@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://b7se06fpyhwgu"]
+
+[ext_resource type="Script" uid="uid://b726huyhl1ktj" path="res://MageSpell.cs" id="1_mlvhm"]
+[ext_resource type="Texture2D" uid="uid://dlawiciqjd2ay" path="res://textures/light.svg" id="2_784t3"]
+[ext_resource type="Texture2D" uid="uid://bcay3b7wyni8g" path="res://textures/Weapons/Arrow.png" id="2_twa1r"]
+
+[node name="MageSpell" type="Node2D" unique_id=886942908]
+
+[node name="Arrow" type="Area2D" parent="." unique_id=517292054]
+visible = false
+script = ExtResource("1_mlvhm")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Arrow" unique_id=990772439]
+rotation = 0.014696191
+scale = Vector2(0.35627556, 0.35627556)
+lifetime = 1.92
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 12.55
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, -50)
+damping_min = 28.703
+damping_max = 43.103
+color = Color(1, 0.3, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Arrow" unique_id=1449558704]
+rotation = 2.3561945
+scale = Vector2(0.10201151, 0.10201151)
+texture = ExtResource("2_twa1r")
+
+[node name="PointLight2D" type="PointLight2D" parent="Arrow" unique_id=1099111037]
+scale = Vector2(0.6307471, 0.6307471)
+color = Color(1, 0.51666665, 0, 1)
+energy = 3.11
+shadow_enabled = true
+texture = ExtResource("2_784t3")
+
+[node name="Fireball" type="Area2D" parent="." unique_id=1356025917]
+visible = false
+script = ExtResource("1_mlvhm")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Fireball" unique_id=2077856712]
+rotation = 0.014696191
+scale = Vector2(0.35627556, 0.35627556)
+lifetime = 1.92
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 12.55
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, -50)
+damping_min = 28.703
+damping_max = 43.103
+color = Color(1, 0.3, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Fireball" unique_id=165041698]
+scale = Vector2(0.10201151, 0.10201151)
+texture = ExtResource("2_784t3")
+
+[node name="PointLight2D" type="PointLight2D" parent="Fireball" unique_id=670912406]
+scale = Vector2(0.9870689, 0.9870689)
+color = Color(1, 0.51666665, 0, 1)
+energy = 3.11
+shadow_enabled = true
+texture = ExtResource("2_784t3")
