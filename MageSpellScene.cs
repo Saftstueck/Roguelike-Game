@@ -1,12 +1,12 @@
 using Godot;
 
-public partial class FireballSpell : Area2D
+public partial class MageSpellScene : Area2D
 {
     [Export]
     public float Speed { get; set; } = 200.0f;
 
     [Export]
-    public float Lifetime { get; set; } = 3.0f;
+    public float Lifetime { get; set; } = 10.0f;
 
     private Vector2 direction;
 

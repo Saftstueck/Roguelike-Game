@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm6pn8lyrxg8m"
-path="res://.godot/imported/sprites3.png-481da81e0e96b508108389797125f633.ctex"
+uid="uid://bipiqmw4muqn7"
+path="res://.godot/imported/Iron Axe.png-bbbd9c1fda7773e63fa85778b17dd9c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/Weapons/sprites3.png"
-dest_files=["res://.godot/imported/sprites3.png-481da81e0e96b508108389797125f633.ctex"]
+source_file="res://textures/Weapons/Iron Axe.png"
+dest_files=["res://.godot/imported/Iron Axe.png-bbbd9c1fda7773e63fa85778b17dd9c4.ctex"]
 
 [params]
 

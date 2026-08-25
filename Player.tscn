@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://bx8lacr3q6m8k"]
+
+[ext_resource type="Script" uid="uid://88lmw8wlqpc5" path="res://Player.cs" id="1_l6ohk"]
+[ext_resource type="Texture2D" uid="uid://dyhfjqf0y6a8s" path="res://textures/tileset/frames/wizzard_m_idle_anim_f0.png" id="2_oudfo"]
+[ext_resource type="Texture2D" uid="uid://bmqvnrclslgrh" path="res://textures/tileset/frames/wizzard_m_idle_anim_f1.png" id="3_d6rpx"]
+[ext_resource type="Texture2D" uid="uid://de5thfyg18gm2" path="res://textures/tileset/frames/wizzard_m_idle_anim_f2.png" id="4_r3kul"]
+[ext_resource type="Texture2D" uid="uid://b27irytnbfdgm" path="res://textures/tileset/frames/wizzard_m_idle_anim_f3.png" id="5_jatw7"]
+[ext_resource type="Texture2D" uid="uid://77wktmsfww7q" path="res://textures/tileset/frames/wizzard_m_run_anim_f0.png" id="6_rv870"]
+[ext_resource type="Texture2D" uid="uid://b6i8y18mor78f" path="res://textures/tileset/frames/wizzard_m_run_anim_f1.png" id="7_efikj"]
+[ext_resource type="Texture2D" uid="uid://ce5nh0qpd5oer" path="res://textures/tileset/frames/wizzard_m_run_anim_f2.png" id="8_itxgx"]
+[ext_resource type="Texture2D" uid="uid://diedrn0e1uron" path="res://textures/tileset/frames/wizzard_m_run_anim_f3.png" id="9_cgsek"]
+[ext_resource type="Texture2D" uid="uid://b6eu08s768lr0" path="res://textures/Weapons/Diamond Sword.png" id="10_0pi4m"]
+[ext_resource type="Script" uid="uid://bgim8cyg51v56" path="res://WeaponCTR.cs" id="11_sg6sq"]
+[ext_resource type="Script" uid="uid://dk436bsq2yrm7" path="res://WeaponPixelFloorGuard.cs" id="12_h84ma"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_47wu6"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oudfo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_d6rpx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r3kul")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jatw7")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_rv870")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_efikj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_itxgx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_cgsek")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2n1s8"]
+radius = 4.129013
+height = 16.551697
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vjad"]
+size = Vector2(2.4689088, 7.359041)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yt0h1"]
+radius = 1.0169067
+height = 17.68219
+
+[node name="Player" type="Node2D" unique_id=1337067681]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=580775039]
+position = Vector2(0, 1)
+script = ExtResource("1_l6ohk")
+Speed = 100.0
+JumpVelocity = -250.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=206154752]
+oversampling_with_scale = 2
+texture_filter = 3
+position = Vector2(-1.3532104, -7.3070984)
+scale = Vector2(1.5156267, 1.4178455)
+sprite_frames = SubResource("SpriteFrames_47wu6")
+animation = &"idle"
+
+[node name="Area2D" type="Area2D" parent="Player/AnimatedSprite2D" unique_id=267533558]
+
+[node name="PlayerHitbox" type="CollisionShape2D" parent="Player/AnimatedSprite2D/Area2D" unique_id=1182733139]
+position = Vector2(1.0322571, 4.8119507)
+shape = SubResource("CapsuleShape2D_2n1s8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=928905939]
+position = Vector2(0.64678955, 0.84646606)
+scale = Vector2(3.2402983, 3.0312493)
+shape = SubResource("RectangleShape2D_3vjad")
+
+[node name="Weapon" type="Sprite2D" parent="Player" unique_id=1209097998]
+texture_filter = 3
+position = Vector2(18.64679, 0.6928711)
+rotation = 0.8743785
+scale = Vector2(0.41577724, 0.38043666)
+texture = ExtResource("10_0pi4m")
+script = ExtResource("11_sg6sq")
+DistanceFromPlayer = 24.0
+BaseScale = 0.5
+
+[node name="Attacks" type="Area2D" parent="Player/Weapon" unique_id=1431453076]
+position = Vector2(-30.047249, 36.432693)
+rotation = -2.3190584
+scale = Vector2(0.47056517, 0.663124)
+skew = -0.55948114
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Weapon/Attacks" unique_id=363297382]
+position = Vector2(-57.126163, 85.33591)
+rotation = 2.0960815
+scale = Vector2(5.0683913, 5.578549)
+skew = -0.56336117
+shape = SubResource("CapsuleShape2D_yt0h1")
+
+[node name="WeaponPixelFloorGuard" type="Node2D" parent="Player/Weapon" unique_id=147542101]
+script = ExtResource("12_h84ma")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1724894812]
+position = Vector2(1, 1)
+zoom = Vector2(5, 5)

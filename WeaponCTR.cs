@@ -345,7 +345,7 @@ public partial class WeaponCTR : Sprite2D
         if (MageSpellScene == null)
         {
             GD.PushWarning(
-                "MageSpellScene is not assigned."
+                "MageSpellScene no workie :( "
             );
 
             return;
