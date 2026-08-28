@@ -286,6 +286,8 @@ layer_0/tile_data = PackedInt32Array(65536, 65538, 0, 196589, 2, 0, 196590, 6553
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1097933339]
 position = Vector2(1000, -707)
+rotation = 0.3926991
+color = Color(1, 0.98866665, 0.83, 1)
 energy = 0.2
 range_z_min = -1023
 shadow_enabled = true

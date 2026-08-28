@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlhy7g62wi4h3"
-path="res://.godot/imported/Spear_n.png-db29c2f520e62dd2c91946810b5332b0.ctex"
+uid="uid://d043yqkytv7cd"
+path="res://.godot/imported/Diamond Great Sword.png-85061d202ed5e5055f6b7f7436fe8c94.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/Weapons/Spear_n.png"
-dest_files=["res://.godot/imported/Spear_n.png-db29c2f520e62dd2c91946810b5332b0.ctex"]
+source_file="res://textures/Weapons/Diamond Great Sword.png"
+dest_files=["res://.godot/imported/Diamond Great Sword.png-85061d202ed5e5055f6b7f7436fe8c94.ctex"]
 
 [params]
 

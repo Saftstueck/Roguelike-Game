@@ -55,15 +55,6 @@ public partial class Game : Node2D
             }
         }
 
-        if (weaponTextures.Count == 0)
-        {
-            GD.PushError(
-                $"No weapon textures found in {WeaponFolder}"
-            );
-
-            return;
-        }
-
         int randomIndex =
             System.Random.Shared.Next(weaponTextures.Count);
 
@@ -96,26 +87,16 @@ public partial class Game : Node2D
     private void SetWeaponTexture(Texture2D texture)
 {
     Node weaponNode = GetTree().Root.FindChild(
-        "Weapon",
+        "WeaponCTR",
         true,
         false
     );
-
-    if (weaponNode == null)
-    {
-        GD.PushError("Could not find a node named Weapon.");
-        return;
-    }
 
     if (weaponNode is Sprite2D weaponSprite)
     {
         weaponSprite.Texture = texture;
         return;
     }
-
-    GD.PushError(
-        $"Weapon was found, but it is {weaponNode.GetType().Name}, not Sprite2D."
-    );
 }
 
     private string FindMatchingNormalMap(

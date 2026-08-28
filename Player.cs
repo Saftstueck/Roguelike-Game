@@ -2,66 +2,56 @@ using Godot;
 
 public partial class Player : CharacterBody2D
 {
-    [Export]
-    public float Speed = 200.0f;
+	[ExportCategory("Movement")]
+	[Export] public float Speed { get; set; } = 200.0f;
+	[Export] public float GroundAcceleration { get; set; } = 1400.0f;
+	[Export] public float AirAcceleration { get; set; } = 500.0f;
+	[Export] public float JumpVelocity { get; set; } = -280.0f;
+	[Export] public float MaximumWeaponVelocity { get; set; } = 650.0f;
 
-    [Export]
-    public float JumpVelocity = -280.0f;
+	private AnimatedSprite2D animatedSprite;
 
-    private AnimatedSprite2D animatedSprite;
+	public override void _Ready()
+	{
+		animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+	}
 
-    public override void _Ready()
-    {
-        animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-    }
+	public override void _PhysicsProcess(double delta)
+	{
+		float dt = (float)delta;
+		Vector2 velocity = Velocity;
 
-    public override void _PhysicsProcess(double delta)
-    {
-        Vector2 velocity = Velocity;
+		if (!IsOnFloor())
+			velocity += GetGravity() * dt;
 
-        if (!IsOnFloor())
-        {
-            velocity += GetGravity() * (float)delta;
-        }
+		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+			velocity.Y = JumpVelocity;
 
-        if (Input.IsActionJustPressed("jump") && IsOnFloor())
-        {
-            velocity.Y = JumpVelocity;
-        }
+		float direction = Input.GetAxis("move_left", "move_right");
+		float targetSpeed = direction * Speed;
+		float acceleration = IsOnFloor()
+			? GroundAcceleration
+			: AirAcceleration;
 
-        float direction = Input.GetAxis("move_left", "move_right");
+		velocity.X = Mathf.MoveToward(
+			velocity.X,
+			targetSpeed,
+			acceleration * dt
+		);
 
-        if (direction != 0)
-        {
-            velocity.X = direction * Speed;
+		Velocity = velocity;
+		MoveAndSlide();
 
-            animatedSprite.FlipH = direction < 0;
-        }
-        else
-        {
-            velocity.X = Mathf.MoveToward(
-                velocity.X,
-                0,
-                Speed
-            );
-        }
+		if (direction != 0.0f)
+			animatedSprite.FlipH = direction < 0.0f;
 
-        Velocity = velocity;
+		animatedSprite.Play(direction != 0.0f ? "walk" : "idle");
+	}
 
-        MoveAndSlide();
-
-        UpdateAnimation(direction);
-    }
-
-    private void UpdateAnimation(float direction)
-    {
-        if (direction != 0)
-        {
-            animatedSprite.Play("walk");
-        }
-        else
-        {
-            animatedSprite.Play("idle");
-        }
-    }
+	public void ApplyWeaponVelocity(Vector2 velocityChange)
+	{
+		Velocity = (Velocity + velocityChange).LimitLength(
+			MaximumWeaponVelocity
+		);
+	}
 }
