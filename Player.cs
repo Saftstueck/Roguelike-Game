@@ -11,6 +11,8 @@ public partial class Player : CharacterBody2D
 
 	private AnimatedSprite2D animatedSprite;
 
+	public int Hp { get; private set; } = 100;
+
 	public override void _Ready()
 	{
 		animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
