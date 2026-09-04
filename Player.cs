@@ -60,10 +60,10 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	private void Die()
+	public void Die()
 	{
 		GD.Print("Player died!");
-		GetTree().ChangeSceneToFile("res://Scenes/death_screen.tscn");
+		GetTree().ChangeSceneToFile("res://death_screen.tscn");
 		// pozniej jeszcze
 		// "Game Over"
 		// Respawn
