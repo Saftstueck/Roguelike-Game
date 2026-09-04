@@ -1,8 +1,43 @@
 [gd_scene format=3 uid="uid://d0ni1hcfgkgg4"]
 
-[node name="DeathScreen" type="Node2D" unique_id=1309458838]
+[ext_resource type="Script" uid="uid://bg50chxdgywy6" path="res://DeathScreen.cs" id="1_if853"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ex68u"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 4
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6bi5g"]
+bg_color = Color(0.14706904, 0.14706904, 0.14706904, 1)
+border_width_left = 4
+border_width_top = 4
+border_color = Color(0.2, 0.2, 0.2, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y0ggs"]
+bg_color = Color(0.39, 0.39, 0.39, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 4
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="Shortcut" id="Shortcut_hhlqb"]
+
+[node name="DeathScreen" type="Control" unique_id=378519135]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_if853")
 
 [node name="TextEdit" type="TextEdit" parent="." unique_id=183794455]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -15,3 +50,26 @@ offset_bottom = 16.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "You have died :<"
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1552085594]
+
+[node name="RestartButton" type="Button" parent="." unique_id=251971735]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = 22.5
+offset_right = 130.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_ex68u")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6bi5g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y0ggs")
+shortcut = SubResource("Shortcut_hhlqb")
+text = "Restart Game"
