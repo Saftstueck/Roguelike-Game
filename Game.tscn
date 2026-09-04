@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bphiurpdkdrfu" path="res://textures/tileset/atlas_walls_low-16x16.png" id="2_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://blk24kydqm6as" path="res://textures/adve/tiles.png" id="3_gwjdr"]
 [ext_resource type="PackedScene" uid="uid://bx8lacr3q6m8k" path="res://Player.tscn" id="6_r0x5m"]
+[ext_resource type="Script" uid="uid://7gc1e8kpjm0m" path="res://Area2d.cs" id="8_joorw"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yhmtn"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -308,6 +309,9 @@ texture = SubResource("GradientTexture2D_gj24f")
 [node name="Player" parent="." unique_id=1337067681 instance=ExtResource("6_r0x5m")]
 position = Vector2(-236, 14)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=698591835]
+[node name="Area2D" type="Area2D" parent="." unique_id=1000571890]
+script = ExtResource("8_joorw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=698591835]
 position = Vector2(14.75, 355.5)
 shape = SubResource("RectangleShape2D_uegmi")
