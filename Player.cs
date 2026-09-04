@@ -48,6 +48,26 @@ public partial class Player : CharacterBody2D
 		animatedSprite.Play(direction != 0.0f ? "walk" : "idle");
 	}
 
+	public void TakeDamage(int damage)
+	{
+		Hp -= damage;
+		if (Hp <= 0)
+		{
+			Hp = 0;
+			Die();
+		}
+	}
+
+	private void Die()
+	{
+		GD.Print("Player died!");
+
+		// pozniej jeszcze
+		// "Game Over"
+		// Respawn
+		// itd
+	}
+
 	public void ApplyWeaponVelocity(Vector2 velocityChange)
 	{
 		Velocity = (Velocity + velocityChange).LimitLength(
@@ -55,3 +75,4 @@ public partial class Player : CharacterBody2D
 		);
 	}
 }
+

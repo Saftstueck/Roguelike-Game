@@ -258,6 +258,9 @@ gradient = SubResource("Gradient_elkpi")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uegmi"]
+size = Vector2(1152.5, 9)
+
 [node name="Game" type="Node2D" unique_id=535980652]
 position = Vector2(561, 296)
 script = ExtResource("1_yyih5")
@@ -270,10 +273,10 @@ position = Vector2(51, -4)
 script = ExtResource("1_lvtmh")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2030444095]
-offset_left = -1189.0
-offset_top = -644.0
-offset_right = 876.0
-offset_bottom = 634.0
+offset_left = -913.0
+offset_top = -568.0
+offset_right = 1152.0
+offset_bottom = 710.0
 color = Color(0.07, 0.07, 0.07, 1)
 
 [node name="TileMap" type="TileMap" parent="." unique_id=1082378393]
@@ -304,3 +307,7 @@ texture = SubResource("GradientTexture2D_gj24f")
 
 [node name="Player" parent="." unique_id=1337067681 instance=ExtResource("6_r0x5m")]
 position = Vector2(-236, 14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=698591835]
+position = Vector2(14.75, 355.5)
+shape = SubResource("RectangleShape2D_uegmi")
