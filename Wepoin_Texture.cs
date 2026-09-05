@@ -31,12 +31,6 @@ public partial class Wepoin_Texture : Node2D
         {
             canvasTexture.NormalTexture = normalMap;
         }
-        else
-        {
-            GD.PushWarning(
-                $"No normal map found for {weaponTexture.ResourcePath}"
-            );
-        }
 
         sprite.Texture = canvasTexture;
     }

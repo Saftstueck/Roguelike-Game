@@ -24,17 +24,6 @@ public partial class SpellCTR : Node
                     true,
                     false
                 ) as WeaponAttacks;
-
-        if (weaponAttacks == null)
-        {
-            GD.PushError(
-                "Could not find WeaponAttacks."
-            );
-
-            return;
-        }
-
-        SelectSpell();
     }
 
     public override void _Process(double delta)

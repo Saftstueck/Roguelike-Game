@@ -100,10 +100,6 @@ public partial class WeaponMovement : Node2D
         if (player == null ||
             weaponTexture == null)
         {
-            GD.PushError(
-                "WeaponMovement could not find Player or WeaponCTR."
-            );
-
             SetPhysicsProcess(false);
             return;
         }

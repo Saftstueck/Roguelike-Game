@@ -11,6 +11,6 @@ public partial class Arrow : MageSpell
         StopMoving();
         RemainingLifetime = StuckLifetime;
 
-        GD.Print("Arrow stuck into: ", collision.GetCollider());
+       //dodać trzeba dmg system
     }
 }

@@ -11,9 +11,7 @@ public partial class Fireball : MageSpell
         float explosionDamage =
             Damage * ExplosionDamageMultiplier;
 
-        GD.Print(
-            $"Fireball exploded for {explosionDamage} damage."
-        );
+        // tutaj dodaj później damage
 
         QueueFree();
     }

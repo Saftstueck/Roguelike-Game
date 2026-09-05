@@ -17,7 +17,7 @@ public partial class Options : Control
 
 		if (mainmenuButton == null)
 		{
-			GD.PushWarning($"Options: Button '{mainmenuButtonPath}' not found.");
+			//nie wiem jak inaczej to zrobić
 		}
 		else
 		{

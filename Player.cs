@@ -64,10 +64,6 @@ public partial class Player : CharacterBody2D
 	{
 		GD.Print("Player died!");
 		GetTree().ChangeSceneToFile("res://death_screen.tscn");
-		// pozniej jeszcze
-		// "Game Over"
-		// Respawn
-		// itd
 	}
 
 	public void ApplyWeaponVelocity(Vector2 velocityChange)
