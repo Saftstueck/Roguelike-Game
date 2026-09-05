@@ -1,3 +1,39 @@
+using Godot;
+
+public  partial class Classes : Node2D
+
+{
+    [Export] public string equiped_class = null; 
+    [Export] public Player player;
+    
+    public string Weapon;
+
+    public override void _Ready()
+    {
+        if (equiped_class == "wizard")
+        {
+            player.Hp = 70;
+            Weapon = "Bloody wand";
+        }
+        
+        if (equiped_class == "grubas")
+        {
+            player.Hp = 200;
+            Weapon = "Wooden Sword";
+
+        }
+         //narazie 2 klasy, bo nie będę wszystkich robić osobno z if tylko zrobię listę, ale to na później, albo ty możesz
+        GD.Print($"HP : {player.Hp} Weapon : {Weapon}");
+    }
+}
+
+
+
+
+
+
+
+
 // MAGES
 // Wizard (70hp) - Attributes: great attacking spells
 // Alchemist (50hp) - Attributes: making potions

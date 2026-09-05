@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dnsgxj8rqk4v5" path="res://textures/Weapons/Sword_n.png" id="11_d6rpx"]
 [ext_resource type="Script" uid="uid://bgim8cyg51v56" path="res://WeaponCTR.cs" id="11_sg6sq"]
 [ext_resource type="Script" uid="uid://crndeihxvqg3e" path="res://WeaponAttacks.cs" id="14_d6rpx"]
+[ext_resource type="Script" uid="uid://bkthj8ps32fs0" path="res://Classes.cs" id="15_r3kul"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_47wu6"]
 animations = [{
@@ -114,3 +115,8 @@ script = ExtResource("11_sg6sq")
 
 [node name="WeaponAttacks" type="Node2D" parent="Weapon" unique_id=1808366190]
 script = ExtResource("14_d6rpx")
+
+[node name="Classes" type="Node2D" parent="." unique_id=1242250166 node_paths=PackedStringArray("player")]
+script = ExtResource("15_r3kul")
+equiped_class = "wizard"
+player = NodePath("../Player")
